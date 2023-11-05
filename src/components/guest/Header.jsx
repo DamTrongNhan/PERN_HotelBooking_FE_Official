@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { FormattedMessage } from 'react-intl';
+
 import {
     Box,
     IconButton,
@@ -18,7 +17,6 @@ import {
     Fade,
     Stack,
     Paper,
-    Unstable_Grid2 as Grid,
     Tooltip,
     Drawer,
 } from '@mui/material';
@@ -32,6 +30,9 @@ import {
     SearchOutlined,
     Language,
 } from '@mui/icons-material';
+
+import { toast } from 'react-toastify';
+import { FormattedMessage } from 'react-intl';
 
 import Logo from 'assets/image/logo.png';
 import FlexBetween from 'components/common/FlexBetween';
@@ -119,7 +120,7 @@ const Navbar = () => {
     };
     const handleNavigateDashboard = () => {
         if (userInfo?.roleKey === 'R1') navigate(DASHBOARD_ADMIN_PATHS.CHART);
-        else if (userInfo?.roleKey === 'R2') navigate(DASHBOARD_USER_PATHS.BOOKING);
+        else if (userInfo?.roleKey === 'R2') navigate(DASHBOARD_USER_PATHS.BOOKINGS);
         else {
             toast.error('Not authenticated, redirecting');
         }

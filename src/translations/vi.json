@@ -265,7 +265,8 @@
             "profile": "Thông tin cá nhân",
             "booking": "Đặt phòng",
             "bookingHistories": "Lịch sử đặt phòng",
-            "reviews": "Đánh giá phòng"
+            "reviews": "Đánh giá phòng",
+            "chat": "Liên hệ"
         }
     },
     "dashboardCommon": {

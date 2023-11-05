@@ -264,7 +264,8 @@
             "profile": "Profile",
             "booking": "Booking",
             "bookingHistories": "Booking history",
-            "reviews": "Reviews room"
+            "reviews": "Reviews room",
+            "chat": "Contact"
         }
     },
     "dashboardCommon": {

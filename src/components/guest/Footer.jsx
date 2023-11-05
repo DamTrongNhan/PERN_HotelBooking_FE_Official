@@ -4,10 +4,6 @@ import { FormattedMessage } from 'react-intl';
 
 const Footer = () => {
     const theme = useTheme();
-    const neutralLight = theme.palette.neutral.light;
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
 
     const icons = [

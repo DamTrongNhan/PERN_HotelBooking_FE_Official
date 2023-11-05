@@ -233,7 +233,7 @@ const TableBookings = () => {
             headerName: 'Actions',
             headerAlign: 'center',
             align: 'center',
-            minWidth: 150,
+            minWidth: 200,
 
             renderCell: ({ row }) => {
                 return (

@@ -32,17 +32,17 @@ export const DASHBOARD_ADMIN_PATHS = {
     REVIEWS: '/dashBoardAdmin/reviews',
     MAIL: '/dashBoardAdmin/sendAd',
     SETTINGS: '/dashBoardAdmin/settings',
-    CHAT_REAL_TIME: '/dashBoardAdmin/chatRealTimes',
+    CHAT_REAL_TIMES: '/dashBoardAdmin/chatRealTimes',
 };
 // Child user
 export const DASHBOARD_USER_PATHS = {
     DASHBOARD: '/dashBoardUser',
-    BOOKING: '/dashBoardUser/booking',
+    BOOKINGS: '/dashBoardUser/bookings',
     PROFILE: '/dashBoardUser/profile',
-    BOOKING_HISTORIES: '/dashBoardUser/histories',
+    HISTORIES: '/dashBoardUser/histories',
     REVIEWS: '/dashBoardUser/reviews',
     SETTINGS: '/dashBoardUser/settings',
-    CHAT_REAL_TIME: '/dashBoardUser/chatRealTimes',
+    CHAT_REAL_TIMES: '/dashBoardUser/chatRealTimes',
 };
 export const NOT_FOUND = 'notFound';
 

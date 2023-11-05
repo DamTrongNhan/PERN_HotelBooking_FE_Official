@@ -36,10 +36,11 @@ import AdminSettings from 'containers/dashboardAdmin/settings/Settings';
 import AdminChatRealTimes from 'containers/dashboardAdmin/chatRealTimes/ChatRealTimes';
 
 // User
-import UserBooking from 'containers/dashboardUser/booking/Booking';
+import UserTableBookings from 'containers/dashboardUser/bookings/TableBookings';
 import UserProfile from 'containers/dashboardUser/profile/Profile';
-import UserReviews from 'containers/dashboardUser/reviews/Reviews';
-import UserBookingHistories from 'containers/dashboardUser/bookingHistories/BookingHistories';
+import UserTableHistories from 'containers/dashboardUser/histories/TableHistories';
+import UserTableReviews from 'containers/dashboardUser/reviews/TableReviews';
+import UserSettings from 'containers/dashboardAdmin/settings/Settings';
 import UserChatRealTimes from 'containers/dashboardUser/chatRealTimes/ChatRealTimes';
 
 // Guest
@@ -110,16 +111,17 @@ const App = () => {
                             <Route path={DASHBOARD_ADMIN_PATHS.MAIL} element={<AdminMail />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.REVIEWS} element={<AdminTableReviews />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.SETTINGS} element={<AdminSettings />} />
-                            <Route path={DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIME} element={<AdminChatRealTimes />} />
+                            <Route path={DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES} element={<AdminChatRealTimes />} />
                         </Route>
                         {/* User */}
                         <Route path={DASHBOARD_USER_PATHS.DASHBOARD} element={<DashboardLayoutUser />}>
-                            <Route index element={<Navigate to={DASHBOARD_USER_PATHS.BOOKING} />} />
-                            <Route path={DASHBOARD_USER_PATHS.BOOKING} element={<UserBooking />} />
+                            <Route index element={<Navigate to={DASHBOARD_USER_PATHS.BOOKINGS} />} />
+                            <Route path={DASHBOARD_USER_PATHS.BOOKINGS} element={<UserTableBookings />} />
                             <Route path={DASHBOARD_USER_PATHS.PROFILE} element={<UserProfile />} />
-                            <Route path={DASHBOARD_USER_PATHS.REVIEWS} element={<UserReviews />} />
-                            <Route path={DASHBOARD_USER_PATHS.BOOKING_HISTORIES} element={<UserBookingHistories />} />
-                            <Route path={DASHBOARD_USER_PATHS.CHAT_REAL_TIME} element={<UserChatRealTimes />} />
+                            <Route path={DASHBOARD_USER_PATHS.HISTORIES} element={<UserTableHistories />} />
+                            <Route path={DASHBOARD_USER_PATHS.REVIEWS} element={<UserTableReviews />} />
+                            <Route path={DASHBOARD_USER_PATHS.SETTINGS} element={<UserSettings />} />
+                            <Route path={DASHBOARD_USER_PATHS.CHAT_REAL_TIMES} element={<UserChatRealTimes />} />
                         </Route>
                         {/* Auth */}
                         <Route element={<AuthLayout />}>

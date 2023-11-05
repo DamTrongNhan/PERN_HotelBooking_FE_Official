@@ -13,10 +13,6 @@ import { GUEST_PATHS } from 'utils';
 
 const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
     const theme = useTheme();
-    const neutralLight = theme.palette.neutral.light;
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
 
     return (
@@ -25,7 +21,7 @@ const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
             backgroundColor={alt}
             sx={{
                 display: 'flex',
-                flex: '1 1 auto'
+                flex: '1 1 auto',
             }}
         >
             <Grid container sx={{ flex: '1 1 auto' }}>
@@ -35,7 +31,7 @@ const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        position: 'relative'
+                        position: 'relative',
                     }}
                 >
                     <Box
@@ -45,14 +41,14 @@ const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
                             top: 0,
                             position: 'absolute',
                             p: 3,
-                            width: '100%'
+                            width: '100%',
                         }}
                     >
                         <Box
                             sx={{
                                 display: 'inline-flex',
                                 height: 70,
-                                width: 70
+                                width: 70,
                             }}
                         >
                             <Link to={GUEST_PATHS.GUEST}>
@@ -70,8 +66,8 @@ const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         '& img': {
-                            width: '82%'
-                        }
+                            width: '82%',
+                        },
                     }}
                 >
                     <Box sx={{ p: 3 }}>
@@ -81,7 +77,7 @@ const AuthLayout = WithUserIsNotAuthenticatedGuard(() => {
                             sx={{
                                 fontSize: '24px',
                                 lineHeight: '32px',
-                                mb: 1
+                                mb: 1,
                             }}
                             variant="h1"
                         >

@@ -43,7 +43,7 @@ import FlexBetween from 'components/common/FlexBetween';
 
 import { changeMode, changeLanguage } from 'store/slice/appSlice';
 import { removeUserInfo } from 'store/slice/authSlice';
-import { updateSelectedChat, updateNotifications, updateChats, removeChatState } from 'store/slice/chatSlice';
+import { updateSelectedChat, updateNotifications, removeChatState } from 'store/slice/chatSlice';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { signOutService } from 'services/authServices';

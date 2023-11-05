@@ -1,18 +1,23 @@
 import { Box, Typography, Unstable_Grid2 as Grid, useTheme } from '@mui/material';
 import { EditCalendarOutlined, AccountBalanceWalletOutlined, LocationOnOutlined } from '@mui/icons-material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { FormattedMessage } from 'react-intl';
 
-const CTA = () => {
-    const isNonMobile = useMediaQuery('(min-width:960px)');
+// linear-gradient(0, rgba(0, 0, 0, 0.95), transparent)
 
+const CTA = () => {
     const theme = useTheme();
-    const neutralLight = theme.palette.neutral.light;
+
     const dark = theme.palette.neutral.dark;
     const background = theme.palette.background.default;
+    const neutralLight = theme.palette.neutral.light;
     const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
+    const medium = theme.palette.neutral.medium;
+    const mediumMain = theme.palette.neutral.mediumMain;
+    const main = theme.palette.neutral.main;
+    const primary = theme.palette.primary.main;
+
     const CTA = [
         {
             icon: <EditCalendarOutlined color="error" sx={{ fontSize: '100px' }} />,

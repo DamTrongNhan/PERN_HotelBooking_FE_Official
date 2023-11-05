@@ -54,8 +54,8 @@ const SideNav = props => {
                     >
                         <Avatar
                             sx={{
-                                height: 40,
-                                width: 40,
+                                height: 60,
+                                width: 60,
                             }}
                             src={userInfo?.avatarUrl || ''}
                         />

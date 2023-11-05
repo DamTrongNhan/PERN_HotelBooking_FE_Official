@@ -81,7 +81,7 @@ export const itemsAdmin = [
     },
     {
         title: <FormattedMessage id="dashboardAdmin.navSideBar.chat" />,
-        path: DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIME,
+        path: DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES,
         icon: <RecordVoiceOver />,
     },
 ];

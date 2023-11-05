@@ -1,21 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-    Box,
-    Typography,
-    Unstable_Grid2 as Grid,
-    useTheme,
-    Button,
-    CardMedia,
-    Card,
-    CardActions,
-    CardContent,
-} from '@mui/material';
+import { Box, Typography, useTheme, Button, CardMedia, Card, CardActions, CardContent } from '@mui/material';
 
 import { toast } from 'react-toastify';
 import _ from 'lodash';
-import * as DOMPurify from 'dompurify';
+// import * as DOMPurify from 'dompurify';
 
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
@@ -28,8 +18,6 @@ import { Pagination, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
-
-// linear-gradient(0, rgba(0, 0, 0, 0.95), transparent)
 
 import './custom-swiper.css';
 

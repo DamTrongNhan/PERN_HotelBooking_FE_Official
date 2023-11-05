@@ -14,9 +14,8 @@ import {
     FormHelperText,
     InputLabel,
     FormControl,
-    Link,
 } from '@mui/material';
-import { Google, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { FormattedMessage } from 'react-intl';
 import { toast } from 'react-toastify';
@@ -29,8 +28,6 @@ import LoadingOverlay from 'components/common/LoadingOverlay';
 import { signUp } from 'store/slice/authSlice';
 
 import { AUTH_PATHS } from 'utils';
-
-import { getGoogleUrl } from 'utils';
 
 const SignUp = () => {
     const navigate = useNavigate();

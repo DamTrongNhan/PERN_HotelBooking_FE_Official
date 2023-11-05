@@ -2,18 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Box, IconButton, FormControl, Select, MenuItem, Button, useTheme, Typography } from '@mui/material';
-import {
-    Help,
-    MarkEmailRead,
-    EventAvailable,
-    ExitToApp,
-    Cancel,
-    Person,
-    MeetingRoom,
-    BookOnline,
-    CheckCircle,
-    Visibility,
-} from '@mui/icons-material';
+import { Help, MarkEmailRead, EventAvailable, ExitToApp, Cancel, CheckCircle, Visibility } from '@mui/icons-material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import { toast } from 'react-toastify';
@@ -25,14 +14,14 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { getAllBookingsService, updateBookingStatusService } from 'services/bookingsService';
+import { getAllBookingHistoriesService, updateBookingStatusService } from 'services/bookingsService';
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
-import DialogViewBooking from './DialogViewBooking';
+import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
 
 import { LANGUAGES } from 'utils';
 
-const TableBookings = () => {
+const TableBookingHistories = () => {
     const axiosPrivate = useAxiosPrivate();
     const language = useSelector(state => state.app.language || 'vi');
 
@@ -65,7 +54,7 @@ const TableBookings = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingsService(axiosPrivate);
+            const response = await getAllBookingHistoriesService(axiosPrivate);
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 
@@ -109,7 +98,6 @@ const TableBookings = () => {
         setCurrentBooking(booking);
         setOpenDialogViewBooking(!openDialogViewBooking);
     };
-
     const handleChangeBookingStatus = async (event, id, roomId, email) => {
         const bookingStatusKey = event.target.value;
         try {
@@ -195,10 +183,9 @@ const TableBookings = () => {
             headerAlign: 'center',
             align: 'center',
             minWidth: 350,
-
             renderCell: ({ row: { bookingStatusKey, id, roomId, email } }) => {
                 return (
-                    <FormControl sx={{ width: '100%' }} variant="standard">
+                    <FormControl sx={{ width: '80%' }} variant="standard">
                         <Select
                             value={bookingStatusKey}
                             onChange={event => handleChangeBookingStatus(event, id, roomId, email)}
@@ -233,8 +220,7 @@ const TableBookings = () => {
             headerName: 'Actions',
             headerAlign: 'center',
             align: 'center',
-            minWidth: 150,
-
+            minWidth: 200,
             renderCell: ({ row }) => {
                 return (
                     <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
@@ -293,7 +279,12 @@ const TableBookings = () => {
                         },
                     }}
                 >
-                    <DataGrid rows={allBookings} columns={columns} slots={{ toolbar: GridToolbar }} />
+                    <DataGrid
+                        rows={allBookings}
+                        columns={columns}
+                        slots={{ toolbar: GridToolbar }}
+                        sx={{ overflowX: 'scroll' }}
+                    />
                 </Box>
             </Box>
             <DialogViewBooking
@@ -305,4 +296,4 @@ const TableBookings = () => {
     );
 };
 
-export default TableBookings;
+export default TableBookingHistories;

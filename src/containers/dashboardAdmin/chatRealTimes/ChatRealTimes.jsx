@@ -58,14 +58,8 @@ const ChatRealTimes = () => {
 
     const theme = useTheme();
     const lgUp = useMediaQuery(theme => theme.breakpoints.up('lg'));
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
     const neutralLight = theme.palette.neutral.light;
     const primaryLight = theme.palette.primary.light;
-    const alt = theme.palette.background.alt;
-    const medium = theme.palette.neutral.medium;
-    const mediumMain = theme.palette.neutral.mediumMain;
-    const main = theme.palette.neutral.main;
     const primary = theme.palette.primary.main;
 
     const [fetchAgain, setFetchAgain] = useState(false);

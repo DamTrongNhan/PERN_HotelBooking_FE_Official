@@ -13,11 +13,8 @@ const Page = () => {
     const navigate = useNavigate();
 
     const theme = useTheme();
-    const neutralLight = theme.palette.neutral.light;
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
+
     return (
         <>
             <Box
@@ -28,7 +25,7 @@ const Page = () => {
                     display: 'flex',
                     flexGrow: 1,
                     minHeight: '100%',
-                    height: '100vh'
+                    height: '100vh',
                 }}
             >
                 <Container maxWidth="md">
@@ -36,13 +33,13 @@ const Page = () => {
                         sx={{
                             alignItems: 'center',
                             display: 'flex',
-                            flexDirection: 'column'
+                            flexDirection: 'column',
                         }}
                     >
                         <Box
                             sx={{
                                 mb: 3,
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                         >
                             <img
@@ -51,7 +48,7 @@ const Page = () => {
                                 style={{
                                     display: 'inline-block',
                                     maxWidth: '100%',
-                                    width: 400
+                                    width: 400,
                                 }}
                             />
                         </Box>

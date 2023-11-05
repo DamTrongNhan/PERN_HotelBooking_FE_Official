@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Box, Container, Paper, Stepper, Step, StepLabel, Button, Typography, AppBar, Toolbar } from '@mui/material';
+import { Box, Container, Paper, Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
 
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';

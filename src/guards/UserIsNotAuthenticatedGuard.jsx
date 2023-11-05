@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 
 export const UserIsNotAuthenticatedGuard = props => {
     const { children } = props;
@@ -35,5 +34,5 @@ export const UserIsNotAuthenticatedGuard = props => {
 };
 
 UserIsNotAuthenticatedGuard.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
 };
