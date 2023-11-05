@@ -9,8 +9,8 @@ export const createContentChatService = (axiosPrivate, data) => {
     return axiosPrivate.post('/chatRealTimes/createContentChat', data);
 };
 
-export const getContentChatService = (axiosPrivate, memberChatId) => {
-    return axiosPrivate.get(`/chatRealTimes/getContentChat/${memberChatId}`);
+export const getAllContentChatService = (axiosPrivate, memberChatId) => {
+    return axiosPrivate.get(`/chatRealTimes/getAllContentChat/${memberChatId}`);
 };
 
 export const getAllUsersSearchService = (axiosPrivate, search) => {

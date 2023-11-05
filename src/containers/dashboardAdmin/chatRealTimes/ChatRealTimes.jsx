@@ -41,13 +41,13 @@ import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import {
     createContentChatService,
     getAllMemberChatByAdminIdService,
-    getContentChatService,
+    getAllContentChatService,
     getAllUsersSearchService,
     getMemberChatByCustomerIdService,
 } from 'services/chatRealTimesService';
 
-import { updateSelectedChat, updateNotifications, updateChats, removeStateChat } from 'store/slice/chatSlice';
-import { LANGUAGES, getAvatarCustomer } from 'utils';
+import { updateSelectedChat, updateNotifications, updateChats } from 'store/slice/chatSlice';
+import { LANGUAGES } from 'utils';
 
 const ENDPOINT = process.env.REACT_APP_URL;
 var socket, selectedChatCompare;
@@ -114,6 +114,7 @@ const ChatRealTimes = () => {
             setIsLoading(true);
             const response = await getAllMemberChatByAdminIdService(axiosPrivate, id);
             if (response?.data?.data) {
+                console.log(response.data.data);
                 dispatch(updateChats(response.data.data));
                 setIsLoading(false);
             }
@@ -152,15 +153,15 @@ const ChatRealTimes = () => {
         }
     };
 
-    const getContentChat = async () => {
+    const getAllContentChat = async () => {
         try {
             if (!selectedChat?.id) return;
             setIsLoading(true);
-            const response = await getContentChatService(axiosPrivate, selectedChat.id);
+            const response = await getAllContentChatService(axiosPrivate, selectedChat?.id);
             if (response?.data?.data) {
                 setMessages(response.data.data);
                 setIsLoading(false);
-                socket.emit('join chat', selectedChat.id);
+                socket.emit('join chat', selectedChat?.id);
             } else {
                 setIsLoading(false);
             }
@@ -183,7 +184,7 @@ const ChatRealTimes = () => {
 
             setIsLoading(true);
             setNewMessage('');
-            const response = await getContentChatService(axiosPrivate, {
+            const response = await createContentChatService(axiosPrivate, {
                 memberChatId: selectedChat?.id,
                 senderId: id,
                 message: newMessage,
@@ -223,7 +224,7 @@ const ChatRealTimes = () => {
     }, []);
 
     useEffect(() => {
-        getContentChat();
+        getAllContentChat();
 
         selectedChatCompare = selectedChat;
         // eslint-disable-next-line
@@ -284,7 +285,7 @@ const ChatRealTimes = () => {
                         </Tooltip>
                         <Avatar
                             alt="avatar-customer"
-                            src={selectedChat?.customerInfo?.avatarData?.url || ''}
+                            src={selectedChat?.customerInfoData?.avatarData?.url || ''}
                             sx={{ cursor: 'pointer' }}
                         />
                     </FlexBetween>
@@ -303,8 +304,8 @@ const ChatRealTimes = () => {
                                       <Paper
                                           key={index}
                                           onClick={() => dispatch(updateSelectedChat(chat))}
-                                          elevation={selectedChat?.id === chat.id ? 3 : 0}
-                                          sx={{ cursor: 'pointer' }}
+                                          elevation={selectedChat?.id === chat.id ? 6 : 0}
+                                          sx={{ cursor: 'pointer', transition: 'all linear 0.2s' }}
                                       >
                                           <CardHeader
                                               avatar={
@@ -381,9 +382,18 @@ const ChatRealTimes = () => {
                         }}
                     >
                         {!_.isEmpty(messages) ? (
-                            <Stack spacing={3}>
+                            <Stack
+                                spacing={2}
+                                sx={{
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'flex-end',
+                                }}
+                            >
                                 {messages?.map((item, index) => (
                                     <Box
+                                        key={index}
                                         sx={{
                                             display: 'flex',
                                             justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
@@ -396,10 +406,7 @@ const ChatRealTimes = () => {
                                                 maxWidth: '80%',
                                             }}
                                         >
-                                            <Typography
-                                                align={id === item?.senderId ? 'right' : 'left'}
-                                                variant="body2"
-                                            >
+                                            <Typography align="justify" variant="body2">
                                                 {item?.message}
                                             </Typography>
                                         </Paper>
@@ -429,21 +436,25 @@ const ChatRealTimes = () => {
                         </>
                     )}
 
-                    <Grid xs={11} lg={11}>
-                        <TextField
-                            value={newMessage}
-                            onKeyDown={event => createContentChat(event)}
-                            onChange={event => typingHandler(event)}
-                            fullWidth
-                            variant="standard"
-                            label="Type a message"
-                        />
-                    </Grid>
-                    <Grid xs={1} lg={1}>
-                        <Button fullWidth variant="contained" color="info">
-                            <Send />
-                        </Button>
-                    </Grid>
+                    {!_.isEmpty(selectedChat) && (
+                        <>
+                            <Grid xs={11} lg={11}>
+                                <TextField
+                                    value={newMessage}
+                                    onKeyDown={event => createContentChat(event)}
+                                    onChange={event => typingHandler(event)}
+                                    fullWidth
+                                    variant="standard"
+                                    label="Type a message"
+                                />
+                            </Grid>
+                            <Grid xs={1} lg={1}>
+                                <Button fullWidth variant="contained" color="info">
+                                    <Send />
+                                </Button>
+                            </Grid>
+                        </>
+                    )}
                 </Grid>
             </Grid>
             <Drawer

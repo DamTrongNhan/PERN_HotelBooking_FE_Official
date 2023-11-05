@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const chatSlice = createSlice({
     name: 'chat',
     initialState: {
-        setSelectedChat: null,
+        selectedChat: null,
         notifications: [],
         chats: null,
     },
     reducers: {
         updateSelectedChat: (state, { payload }) => {
-            state.setSelectedChat = payload;
+            state.selectedChat = payload;
         },
         updateNotifications: (state, { payload }) => {
             state.notifications = payload;
@@ -18,7 +18,7 @@ export const chatSlice = createSlice({
             state.chats = payload;
         },
         removeChatState: (state, { payload }) => {
-            state.setSelectedChat = null;
+            state.selectedChat = null;
             state.notifications = [];
             state.chats = null;
         },

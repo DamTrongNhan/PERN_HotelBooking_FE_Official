@@ -1,3 +1,5 @@
+import { notification } from 'antd';
+
 export const isSameSenderMargin = (messages, m, i, userId) => {
     // console.log(i === messages.length - 1);
 
@@ -42,4 +44,12 @@ export const getSenderFull = (loggedUser, users) => {
 export const getAvatarCustomer = (memberChatId, chats) => {
     const chat = chats?.find(chat => chat.memberChatId === memberChatId);
     return chat?.customerInfoData?.avatarData?.url;
+};
+
+export const getSenderName = (roleKey = '', notification = {}) => {
+    const map = {
+        R1: notification?.chat?.customerInfoData?.firstName,
+        R2: notification?.chat?.adminInfoData?.firstName,
+    };
+    return map[roleKey] || '';
 };

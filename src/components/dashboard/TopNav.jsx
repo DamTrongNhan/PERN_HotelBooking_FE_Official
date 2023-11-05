@@ -48,7 +48,7 @@ import { updateSelectedChat, updateNotifications, removeChatState } from 'store/
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { signOutService } from 'services/authServices';
 
-import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES } from 'utils';
+import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES, getSenderName } from 'utils';
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -80,10 +80,6 @@ const TopNav = props => {
     const handleOpenLanguageDesk = event => {
         setAnchorElLanguageDesk(event.currentTarget);
         setOpenLanguageDesk(previousOpen => !previousOpen);
-    };
-
-    const handleChangeLanguage = inputLanguage => {
-        dispatch(changeLanguage(inputLanguage));
     };
 
     const handleOpenNotificationsDesk = event => {
@@ -190,7 +186,7 @@ const TopNav = props => {
                                     <Paper elevation={6} sx={{ mt: 2, p: 2 }}>
                                         <Stack spacing={2}>
                                             <Button
-                                                onClick={() => handleChangeLanguage(LANGUAGES.VI)}
+                                                onClick={() => dispatch(changeLanguage(LANGUAGES.VI))}
                                                 variant={LANGUAGES.VI === language ? 'contained' : ''}
                                                 color="secondary"
                                                 sx={{ textTransform: 'none' }}
@@ -198,7 +194,7 @@ const TopNav = props => {
                                                 Vietnamese
                                             </Button>
                                             <Button
-                                                onClick={() => handleChangeLanguage(LANGUAGES.EN)}
+                                                onClick={() => dispatch(changeLanguage(LANGUAGES.EN))}
                                                 variant={LANGUAGES.EN === language ? 'contained' : ''}
                                                 color="secondary"
                                                 sx={{ textTransform: 'none' }}
@@ -236,13 +232,13 @@ const TopNav = props => {
                                                 <ListItem alignItems="flex-start">
                                                     {notifications.map((notification, index) => (
                                                         <ListItemText
+                                                            key={index}
                                                             onClick={() => {
                                                                 updateSelectedChat(notification.chat);
                                                                 updateNotifications(
                                                                     notifications.filter(n => n !== notification)
                                                                 );
                                                             }}
-                                                            key={index}
                                                             // primary={notification}
                                                             secondary={
                                                                 <>
@@ -253,7 +249,7 @@ const TopNav = props => {
                                                                         color="text.primary"
                                                                     >
                                                                         <FormattedMessage id="dashboardAdmin.chatRealTimes.message" />
-                                                                        {notification?.chat?.customerInfo?.firstName}
+                                                                        {getSenderName(roleKey, notification)}
                                                                     </Typography>
                                                                 </>
                                                             }
