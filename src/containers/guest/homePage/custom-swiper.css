@@ -1,0 +1,13 @@
+.swiper_container {
+    padding-bottom: 40px;
+}
+.swiper-slide {
+    margin: 15px 0;
+    width: 500px;
+}
+
+@media (max-width: 500px) {
+    .swiper-slide {
+        width: 300px;
+    }
+}

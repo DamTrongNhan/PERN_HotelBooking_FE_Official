@@ -1,0 +1,279 @@
+{
+    "guest": {
+        "homePage": {
+            "title": "Welcome to Nhan Manor",
+            "subtitle": "Enjoy your vacations with our hotel",
+            "welcomeContent": "Welcome to our hotel, the perfect combination of luxury and tranquility. With beautiful views and professional services, we are committed to providing customers with a memorable experience and absolute comfort.",
+            "discover": "Discover",
+            "search": "Search",
+            "cta": "Things you need to do",
+            "ctaContent": "We ensure that you’ll embark on a perfectly planned, safe vacation at a price you can afford.",
+            "signUp": "Sign Up",
+            "signUpContent": "Completes all the work associated with planning and processing",
+            "worth": "Worth of Money",
+            "worthContent": "After successful access then book from exclusive deals & pricing",
+            "exciting": "Exciting Travel",
+            "excitingContent": "Start and explore a wide range of exciting travel experience"
+        },
+        "roomTypesList": {
+            "book": "Book now",
+            "days": " days",
+            "found": " room types are available",
+            "roomNumber": "Room ",
+            "chooseRoom": "Room selection table",
+            "kingBed": "King bed",
+            "twinBed": "Twin bed",
+            "roomNotAvailable": "Sorry, this room type is not available!"
+        },
+        "roomTypeDetail": {
+            "description": "Description",
+            "amenities": "Amenities",
+            "rules": "Rules & Regulations",
+            "reviews": "Reviews",
+            "emptyReviews": "There are no ratings/reviews yet",
+            "createReviews": "Create reviews",
+            "yourRating": "Your rating",
+            "yourReview": "Your review",
+            "submit": "Submit",
+            "signInRequire": "Sign in or register an account to continue",
+            "goToSignIn": "Sign in"
+        },
+        "booking": {
+            "booking": "Book a room",
+            "enterInformation": {
+                "label": "Enter information",
+                "title": "Enter your information",
+                "name": "Name",
+                "firstName": "First name",
+                "lastName": "Last name",
+                "email": "Email",
+                "phone": "Phone",
+                "country": "Country",
+                "CIC": "Citizen ID"
+            },
+            "reviewBooking": {
+                "label": "Review your booking",
+                "title": "Booking confirmation",
+                "roomType": "Room type",
+                "roomNumber": "Room number",
+                "checkIn": "Check in",
+                "checkOut": "Check out",
+                "pricePerNight": "Price per night",
+                "days": " days",
+                "adult": "Adult",
+                "child": "Children",
+                "information": "Information",
+                "paymentDetails": "Payment details",
+                "vnpay": "Payment via Vnpay wallet",
+                "cash": "Pay upon check-in",
+                "paymentStatus": "Payment status",
+                "paymentType": "Payment type"
+            },
+            "paymentDetails": "Payment details",
+            "thankYou": "Thank you for choosing our hotel. We appreciate your reservation.",
+            "bookingCode": "Your booking code is ",
+            "confirmBooking": " .We will send you an email to confirm your reservation.",
+            "homePage": "Home page"
+        },
+        "verifyBooking": {
+            "title": "Verification status"
+        },
+        "paymentStatus": {
+            "title": "Payment status",
+            "paid": "Payment completed",
+            "notPaid": "Not paid",
+            "repayment": "Repayment"
+        },
+        "header": {
+            "navRoom": "Room",
+            "navGallery": "Gallery",
+            "navPosts": "Posts",
+            "navAboutUs": "About Us",
+            "dashboard": "Dashboard",
+            "language": "Language",
+            "signOut": "Sign out"
+        },
+        "footer": {
+            "introduce": "Welcome to our hotel - the ideal place for your vacation.",
+            "company": "Company",
+            "contact": "Contact",
+            "subscribe": "Subscribe to our newsletter",
+            "subscribeContent": "Subscribe to receive future promotional information.",
+            "subscribeBtn": "Subscribe",
+            "terms": "Terms & Conditions",
+            "about": "About",
+            "awards": "Awards",
+            "gallery": "Gallery",
+            "privacy": "Privacy Policy",
+            "help": "Help/FAQ",
+            "customer": "Customer voice",
+            "hotline": "Hotline",
+            "career": "Career"
+        },
+        "notFound": {
+            "title": "404: The page you are looking for isn’t here",
+            "subTitle": "You either tried some shady route or you came here by mistake. Whichever it is, try using the navigation",
+            "btn": "Go back home page"
+        },
+        "signInToContinue": {
+            "title": "Please sign in to continue",
+            "btn": "Go to sign in page"
+        }
+    },
+    "auth": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "continue": "Continue",
+        "forgot": "Forgot password",
+        "google": "Continue with google",
+        "slogan": "Come as a guest - leave as a friend",
+        "send": "Send"
+    },
+    "dashboardAdmin": {
+        "navSideBar": {
+            "chart": "Statistical",
+            "code": "Code system",
+            "services": "Services",
+            "users": "Users",
+            "roomTypes": "Room types",
+            "rooms": "Rooms",
+            "bookings": "Bookings",
+            "histories": "Histories",
+            "posts": "Posts",
+            "mail": "Send mail",
+            "calendar": "Calendar",
+            "reviews": "Reviews",
+            "chat": "Tư vấn"
+        },
+        "allCodes": {
+            "title": "All Codes",
+            "subtitle": "System code management",
+            "createSubtitle": "Create new code in the system",
+            "updateSubtitle": "Update the code in the system"
+        },
+        "services": {
+            "title": "Services",
+            "subtitle": "Services management",
+            "createSubtitle": "Create new service in the system",
+            "updateSubtitle": "Update the service in the system",
+            "viewSubtitle": "Details service",
+            "details": {
+                "keyMap": "Key",
+                "type": "Type",
+                "titleVi": "Title in Vietnamese",
+                "titleEn": "Title in English",
+                "descriptionVi": "Description in Vietnamese",
+                "descriptionEn": "Description in English",
+                "price": "Price",
+                "createdAt": "Created at"
+            }
+        },
+        "users": {
+            "title": "User",
+            "subtitle": "User management",
+            "createSubtitle": "Create new user",
+            "updateSubtitle": "Update user",
+            "updateStatusSubtitle": "Update user status",
+            "viewSubtitle": "Detail user",
+            "detail": {
+                "name": "Name",
+                "email": "Email",
+                "phone": "Phone",
+                "gender": "Gender",
+                "CIC": "Citizen identification",
+                "country": "Country",
+                "birthday": "Birthday",
+                "role": "Role",
+                "userStatus": "Status",
+                "createdAt": "Created at"
+            }
+        },
+        "roomTypes": {
+            "title": "Room type",
+            "subtitle": "Room type management",
+            "createSubtitle": "Create new room type",
+            "updateSubtitle": "Update room type",
+            "viewSubtitle": "Detail room type",
+            "detail": {
+                "roomCode": "Room code",
+                "roomType": "Room type",
+                "bedType": "Bed type",
+                "viewType": "View",
+                "pricePerNight": "Price per night",
+                "occupancy": "Quantity guests",
+                "checkInOutTime": "Check in/Check out",
+                "size": "Size",
+                "numberBookings": "Number of bookings",
+                "createdAt": "Created time",
+                "featuresVi": "Features in Vietnamese",
+                "featuresEn": "Features in English",
+                "descriptionVi": "Description in Vietnamese",
+                "descriptionEn": "Description in English"
+            }
+        },
+        "rooms": {
+            "title": "Room",
+            "subtitle": "Room management",
+            "createSubtitle": "Create new room",
+            "updateSubtitle": "Update room",
+            "updateStatusSubtitle": "Update room status",
+            "detail": {
+                "roomType": "Room type",
+                "number": "Number",
+                "roomStatus": "Room status",
+                "createdAt": "Created time"
+            }
+        },
+        "bookings": {
+            "title": "Booking",
+            "subtitle": "Booking management",
+            "viewSubtitle": "Booking details",
+            "details": {
+                "timeCreated": "Booking time",
+                "bookingCode": "Booking code",
+                "bookingStatus": "Booking status",
+                "cancelTime": "Cancel time"
+            }
+        },
+        "histories": {
+            "title": "Booking history",
+            "subtitle": "Manage booking history",
+            "viewSubtitle": "Booking details"
+        },
+        "reviews": {
+            "title": "Reviews",
+            "subtitle": "Reviews management",
+            "viewSubtitle": "Review details",
+            "details": {
+                "roomType": "Room type",
+                "userEmail": "User email",
+                "userName": "User name",
+                "star": "Star",
+                "review": "Review",
+                "createdAt": "Created time"
+            }
+        },
+        "chatRealTimes": {
+            "message": "New message from",
+            "noMessages": "No messages",
+            "noFoundUser": "No user found"
+        }
+    },
+    "dashboardUser": {
+        "navSideBar": {
+            "profile": "Profile",
+            "booking": "Booking",
+            "bookingHistories": "Booking history",
+            "reviews": "Reviews room"
+        }
+    },
+    "dashboardCommon": {
+        "goGuest": "Go home page",
+        "create": "Create",
+        "update": "Update",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirmHeader": "Delete",
+        "confirmBody": "Are you sure you want to delete this content!"
+    }
+}

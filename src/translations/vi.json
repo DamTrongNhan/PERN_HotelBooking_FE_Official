@@ -1,0 +1,280 @@
+{
+    "guest": {
+        "homePage": {
+            "title": "Chào mừng đến với khách sạn Nhan Manor",
+            "subtitle": "Tận hưởng kỳ nghỉ của bạn với những dịch vụ tốt nhất từ chúng tôi",
+            "welcomeContent": "Chào mừng đến với khách sạn chúng tôi, nơi kết hợp hoàn hảo giữa sang trọng và yên bình. Với tầm nhìn đẹp và dịch vụ chuyên nghiệp, chúng tôi cam kết mang đến cho khách hàng trải nghiệm đáng nhớ và thoải mái tuyệt đối.",
+            "discover": "Khám phá",
+            "search": "Tìm kiếm",
+            "cta": "Những điều bạn cần làm",
+            "ctaContent": "Chúng tôi đảm bảo rằng bạn sẽ có được một kỳ nghỉ tuyệt vời, được lên kế hoạch hoàn hảo với mức giá rất phù hợp.",
+            "signUp": "Đăng ký",
+            "signUpContent": "Hoàn thành quá trình đăng ký và lên kế hoạch cho chuyến đi.",
+            "worth": "Rất đáng tiền",
+            "worthContent": "Đặt chỗ và tận hưởng các dịch vụ, ưu đãi độc quyền.",
+            "exciting": "Kỳ du lịch đáng nhớ",
+            "excitingContent": "Bắt đầu và khám phá hàng loạt trải nghiệm du lịch thú vị"
+        },
+        "header": {
+            "navRoom": "Loại phòng",
+            "navGallery": "Ảnh",
+            "navPosts": "Bài viết",
+            "navAboutUs": "Giới thiệu",
+            "dashboard": "Quản trị",
+            "language": "Ngôn ngữ",
+            "signOut": "Đăng xuất"
+        },
+        "roomTypesList": {
+            "book": "Đặt ngay",
+            "days": " ngày",
+            "found": " loại phòng đang có sẵn",
+            "roomNumber": "Phòng ",
+            "chooseRoom": "Bảng chọn phòng",
+            "kingBed": "Giường cỡ lớn",
+            "twinBed": "Giường đôi",
+            "roomNotAvailable": "Xin lỗi, phòng loại này hiện không có sẵn!"
+        },
+        "roomTypeDetail": {
+            "description": "Mô tả",
+            "amenities": "Tiện nghi",
+            "rules": "Quy tắc và quy  định",
+            "reviews": "Đánh giá",
+            "emptyReviews": "Chưa có đánh giá",
+            "createReviews": "Tạo đánh giá",
+            "yourRating": "Đánh giá sao",
+            "yourReview": "Viết đánh giá",
+            "submit": "Gửi",
+            "signInRequire": "Đăng nhập hoặc đăng ký tài khoản để tiếp tục",
+            "goToSignIn": "Đăng nhập"
+        },
+        "booking": {
+            "booking": "Đặt phòng",
+            "enterInformation": {
+                "label": "Nhập thông tin",
+                "title": "Nhập thông tin của bạn",
+                "name": "Tên",
+                "firstName": "Tên",
+                "lastName": "Họ",
+                "email": "Email",
+                "phone": "Di động",
+                "country": "Quốc gia",
+                "CIC": "Căn cước công dân"
+            },
+            "reviewBooking": {
+                "label": "Xem lại thông tin đặt phòng",
+                "title": "Xác nhận đặt phòng",
+                "roomType": "Loại phòng",
+                "roomNumber": "Số phòng",
+                "checkIn": "Ngày nhận phòng",
+                "checkOut": "Ngày trả phòng",
+                "pricePerNight": "Giá mỗi đêm",
+                "days": "Số ngày",
+                "adult": "Người lớn",
+                "child": "Trẻ em",
+                "information": "Thông tin",
+                "paymentDetails": "Chi tiết thanh toán",
+                "vnpay": "Thanh toán qua ví Vnpay",
+                "cash": "Thanh toán khi nhận phòng",
+                "paymentStatus": "Trạng thái thanh toán",
+                "paymentType": "Hình thức thanh toán"
+            },
+            "paymentDetails": "Chi tiết thanh toán",
+            "thankYou": "Cảm ơn bạn đã chọn khách sạn của chúng tôi. Chúng tôi rất trân trọng đặt phòng của bạn.",
+            "bookingCode": "Mã đặt phòng của bạn là ",
+            "confirmBooking": " .Chúng tôi sẽ gửi cho bạn một email xác nhận về đơn đặt phòng của bạn.",
+            "homePage": "Trang chủ"
+        },
+        "verifyBooking": {
+            "title": "Trạng thái xác minh"
+        },
+        "paymentStatus": {
+            "title": "Trạng thái thanh toán",
+            "notPaid": "Chưa được thanh toán",
+            "paid": "Đã thanh toán",
+            "repayment": "Thanh toán lại"
+        },
+        "footer": {
+            "introduce": "Chào mừng bạn đến với khách sạn chúng tôi - nơi lý tưởng cho kỳ nghỉ của bạn.",
+            "company": "Công ty",
+            "contact": "Liên hệ",
+            "subscribe": "Theo dõi bản tin của chúng tôi",
+            "subscribeContent": "Đăng ký để nhận thông tin khuyến mãi trong tương lai.",
+            "subscribeBtn": "Đăng ký",
+            "terms": "Điều khoản và điều kiện",
+            "about": "Giới thiệu",
+            "awards": "Giải thưởng",
+            "gallery": "Ảnh",
+            "privacy": "Chính sách ",
+            "help": "Help/FAQ",
+            "customer": "Phản hồi khách",
+            "hotline": "Đường dây",
+            "career": "Nhân viên"
+        },
+        "notFound": {
+            "title": "404: Trang bạn đang cố truy cập hiện không khả dụng",
+            "subTitle": "Bạn đang cố truy cập trang không tồn tại do nhầm lẫn hoặc lỗi nào đó",
+            "btn": "Trở lại trang chủ"
+        },
+        "signInToContinue": {
+            "title": "Please sign in to continue",
+            "btn": "Go to sign in page"
+        }
+    },
+    "auth": {
+        "signIn": "Đăng nhập",
+        "signUp": "Đăng ký",
+        "continue": "Tiếp tục",
+        "forgot": "Quên mật khẩu",
+        "google": "Tiếp tục với google",
+        "slogan": "Đến như một vị khách - rời đi như một người bạn",
+        "send": "Gửi"
+    },
+    "dashboardAdmin": {
+        "navSideBar": {
+            "chart": "Thống kê",
+            "code": "Mã hệ thống",
+            "services": "Dịch vụ",
+            "users": "Người dùng",
+            "roomTypes": "Loại phòng",
+            "rooms": "Phòng",
+            "bookings": "Đặt phòng",
+            "histories": "Lịch sử",
+            "posts": "Bài viết",
+            "mail": "Gửi mail",
+            "calendar": "Lịch",
+            "reviews": "Đánh giá",
+            "chat": "Liên hệ"
+        },
+        "allCodes": {
+            "title": "Mã hệ thống",
+            "subtitle": "Quản lí mã hệ thống",
+            "createSubtitle": "Tạo mã mới",
+            "updateSubtitle": "Cập nhật mã"
+        },
+        "services": {
+            "title": "Mã dịch vụ",
+            "subtitle": "Quản lí mã dịch vụ",
+            "createSubtitle": "Tạo mã dịch vụ",
+            "updateSubtitle": "Cập nhật mã dịch vụ",
+            "viewSubtitle": "Chi tiết dịch vụ",
+            "details": {
+                "keyMap": "Khóa",
+                "type": "Loại",
+                "titleVi": "Tựa đề bằng tiếng Việt",
+                "titleEn": "Tựa đề bằng tiếng Anh",
+                "descriptionVi": "Mô tả bằng tiếng Việt",
+                "descriptionEn": "Mô tả bằng tiếng Anh",
+                "price": "Giá",
+                "createdAt": "Ngày tạo"
+            }
+        },
+        "users": {
+            "title": "Người dùng",
+            "subtitle": "Quản lí người dùng",
+            "createSubtitle": "Tạo mới người dùng",
+            "updateSubtitle": "Cập nhật người dùng",
+            "updateStatusSubtitle": "Cập nhật trạng tài khoản",
+            "viewSubtitle": "Thông tin người dùng",
+            "detail": {
+                "name": "Họ tên",
+                "email": "Email",
+                "phone": "Điện thoại",
+                "gender": "Giới tính",
+                "CIC": "Căn cước công dân",
+                "country": "Quốc gia",
+                "birthday": "Ngày sinh",
+                "role": "Quyền",
+                "userStatus": "Trạng thái",
+                "createdAt": "Ngày tạo"
+            }
+        },
+        "roomTypes": {
+            "title": "Loại phòng",
+            "subtitle": "Quản lí loại phòng",
+            "createSubtitle": "Tạo mới loại phòng",
+            "updateSubtitle": "Cập nhật loại phòng",
+            "viewSubtitle": "Thông tin loại phòng",
+            "detail": {
+                "roomCode": "Mã phòng",
+                "roomType": "Loại phòng",
+                "bedType": "Loại giường",
+                "viewType": "Hướng nhìn",
+                "pricePerNight": "Giá mỗi đêm",
+                "occupancy": "Sức chứa",
+                "checkInOutTime": "Nhận loại phòng/ trả loại phòng",
+                "size": "Kích thước",
+                "features": "Đặc điểm",
+                "numberBookings": "Số lần đặt loại phòng này",
+                "createdAt": "Thời gian tạo",
+                "featuresVi": "Đặc điểm bằng tiếng Việt",
+                "featuresEn": "Đặc điểm bằng tiếng Anh",
+                "descriptionVi": "Mô tả bằng tiếng Việt",
+                "descriptionEn": "Mô tả bằng tiếng Anh"
+            }
+        },
+        "rooms": {
+            "title": "Phòng",
+            "subtitle": "Quản lí phòng",
+            "createSubtitle": "Tạo mới phòng",
+            "updateSubtitle": "Cập nhật phòng",
+            "updateStatusSubtitle": "Cập nhật trạng thái phòng",
+            "detail": {
+                "roomType": "Loại phòng",
+                "number": "Số phòng",
+                "roomStatus": "Trạng thái phòng",
+                "createdAt": "Thời gian tạo"
+            }
+        },
+        "bookings": {
+            "title": "Đặt phòng",
+            "subtitle": "Quản lí đặt phòng",
+            "viewSubtitle": "Chi tiết đặt phòng",
+            "details": {
+                "timeCreated": "Thời gian đặt",
+                "bookingCode": "Mã đặt phòng",
+                "bookingStatus": "Trạng thái",
+                "cancelTime": "Thời gian hủy"
+            }
+        },
+        "histories": {
+            "title": "Lịch sử đặt phòng",
+            "subtitle": "Quản lí lịch sử đặt phòng",
+            "viewSubtitle": "Chi tiết đặt phòng"
+        },
+        "reviews": {
+            "title": "Đánh giá ",
+            "subtitle": "Quản lí đánh giá",
+            "viewSubtitle": "Chi tiết đánh giá",
+            "details": {
+                "roomType": "Loại phòng",
+                "userEmail": "Email người dùng",
+                "userName": "Tên người dùng",
+                "star": "Số sao",
+                "review": "Nội dung đánh giá",
+                "createdAt": "Thời gian tạo"
+            }
+        },
+        "chatRealTimes": {
+            "message": "Có tin nhắn đến từ",
+            "noMessages": "Không có tin nhắn mới",
+            "noFoundUser": "Không tìm thấy khách hàng"
+        }
+    },
+    "dashboardUser": {
+        "navSideBar": {
+            "profile": "Thông tin cá nhân",
+            "booking": "Đặt phòng",
+            "bookingHistories": "Lịch sử đặt phòng",
+            "reviews": "Đánh giá phòng"
+        }
+    },
+    "dashboardCommon": {
+        "goGuest": "Về trang khách",
+        "create": "Tạo",
+        "update": "Cập nhật",
+        "delete": "Xóa",
+        "cancel": "Hủy",
+        "confirmHeader": "Xóa",
+        "confirmBody": "Bạn có thật sự muốn xóa nội dung này!"
+    }
+}
