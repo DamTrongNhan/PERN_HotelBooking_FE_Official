@@ -48,7 +48,7 @@ import { updateSelectedChat, updateNotifications, removeChatState } from 'store/
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { signOutService } from 'services/authServices';
 
-import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES, getSenderName } from 'utils';
+import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES } from 'utils';
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -234,7 +234,7 @@ const TopNav = props => {
                                                         <ListItemText
                                                             key={index}
                                                             onClick={() => {
-                                                                updateSelectedChat(notification.chat);
+                                                                updateSelectedChat(notification);
                                                                 updateNotifications(
                                                                     notifications.filter(n => n !== notification)
                                                                 );
@@ -249,7 +249,7 @@ const TopNav = props => {
                                                                         color="text.primary"
                                                                     >
                                                                         <FormattedMessage id="dashboardAdmin.chatRealTimes.message" />
-                                                                        {getSenderName(roleKey, notification)}
+                                                                        {notification?.senderInfo?.firstName}
                                                                     </Typography>
                                                                 </>
                                                             }

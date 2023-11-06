@@ -30,8 +30,6 @@ import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import _, { debounce } from 'lodash';
 
-import io from 'socket.io-client';
-
 import chatImage from 'assets/image/chat.png';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 import FlexBetween from 'components/common/FlexBetween';
@@ -39,17 +37,18 @@ import FlexBetween from 'components/common/FlexBetween';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 
 import {
+    getAllMemberChatService,
+    getMemberChatService,
     createContentChatService,
-    getAllMemberChatByAdminIdService,
     getAllContentChatService,
     getAllUsersSearchService,
-    getMemberChatByCustomerIdService,
 } from 'services/chatRealTimesService';
 
 import { updateSelectedChat, updateNotifications, updateChats } from 'store/slice/chatSlice';
-import { LANGUAGES } from 'utils';
+import { LANGUAGES, getReaderInfo } from 'utils';
 
-const ENDPOINT = process.env.REACT_APP_URL;
+import io from 'socket.io-client';
+const ENDPOINT = process.env.SERVER_APP_URL;
 var socket, selectedChatCompare;
 
 const ChatRealTimes = () => {
@@ -71,7 +70,6 @@ const ChatRealTimes = () => {
 
     const { selectedChat = {}, notifications = [], chats = [] } = useSelector(state => state.chat);
     const id = useSelector(state => state.auth.userInfo?.id || '');
-    const userInfo = useSelector(state => state.auth.userInfo || {});
 
     const [searchToggled, setSearchToggled] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
@@ -112,7 +110,7 @@ const ChatRealTimes = () => {
     const getAllMemberChat = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllMemberChatByAdminIdService(axiosPrivate, id);
+            const response = await getAllMemberChatService(axiosPrivate);
             if (response?.data?.data) {
                 dispatch(updateChats(response.data.data));
                 setIsLoading(false);
@@ -129,12 +127,12 @@ const ChatRealTimes = () => {
         }
     };
 
-    const getMemberChat = async customerId => {
+    const getMemberChat = async userId => {
         try {
             setIsLoading(true);
-            const response = await getMemberChatByCustomerIdService(axiosPrivate, { adminId: id, customerId });
+            const response = await getMemberChatService(axiosPrivate, { userId });
             if (response?.data?.data) {
-                const chat = response?.data?.data;
+                const chat = response.data.data;
                 setSearchToggled(!searchToggled);
                 if (!chats.find(c => c.id === chat.id)) dispatch(updateChats([chat, ...chats]));
                 dispatch(updateSelectedChat(chat));
@@ -185,13 +183,15 @@ const ChatRealTimes = () => {
             setNewMessage('');
             const response = await createContentChatService(axiosPrivate, {
                 memberChatId: selectedChat?.id,
-                senderId: id,
+                readerId: getReaderInfo(id, selectedChat).id,
                 message: newMessage,
             });
             if (response?.data?.data) {
+                const message = response.data.data;
+
                 setIsLoading(false);
-                socket.emit('new message', response.data.data);
-                setMessages([...messages, response.data.data]);
+                socket.emit('new message', message);
+                setMessages([...messages, message]);
             } else {
                 setIsLoading(false);
             }
@@ -214,7 +214,7 @@ const ChatRealTimes = () => {
 
     useEffect(() => {
         socket = io(ENDPOINT);
-        socket.emit('setup', userInfo);
+        socket.emit('setup', id);
         socket.on('connected', () => setSocketConnected(true));
         socket.on('typing', () => setIsTyping(true));
         socket.on('stop typing', () => setIsTyping(false));
@@ -233,7 +233,7 @@ const ChatRealTimes = () => {
         socket.on('message received', newMessageReceived => {
             if (
                 !selectedChatCompare || // if chat is not selected or doesn't match current chat
-                selectedChatCompare.id !== newMessageReceived.chat.id
+                selectedChatCompare.id !== newMessageReceived.memberChatId
             ) {
                 if (!notifications.includes(newMessageReceived)) {
                     dispatch(updateNotifications([newMessageReceived, ...notifications]));
@@ -284,7 +284,7 @@ const ChatRealTimes = () => {
                         </Tooltip>
                         <Avatar
                             alt="avatar-customer"
-                            src={selectedChat?.customerInfoData?.avatarData?.url || ''}
+                            src={getReaderInfo(id, selectedChat)?.avatarData?.url || ''}
                             sx={{ cursor: 'pointer' }}
                         />
                     </FlexBetween>
@@ -311,7 +311,7 @@ const ChatRealTimes = () => {
                                                   <Badge badgeContent={4} color="primary">
                                                       <Avatar
                                                           aria-label="avatar"
-                                                          src={chat?.customerInfoData?.avatarData?.url}
+                                                          src={getReaderInfo(id, chat)?.avatarData?.url || ''}
                                                       />
                                                   </Badge>
                                               }
@@ -326,8 +326,12 @@ const ChatRealTimes = () => {
                                               }
                                               title={
                                                   LANGUAGES.VI === language
-                                                      ? `${chat?.customerInfoData?.lastName} ${chat?.customerInfoData?.firstName}`
-                                                      : `${chat?.customerInfoData?.firstName} ${chat?.customerInfoData?.lastName}`
+                                                      ? `${getReaderInfo(id, chat)?.lastName} ${
+                                                            getReaderInfo(id, chat)?.firstName
+                                                        }`
+                                                      : `${getReaderInfo(id, chat)?.firstName} ${
+                                                            getReaderInfo(id, chat)?.lastName
+                                                        }`
                                               }
                                               subheader={
                                                   chat?.contentChatData?.length > 0 &&

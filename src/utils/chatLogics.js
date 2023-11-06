@@ -48,8 +48,19 @@ export const getAvatarCustomer = (memberChatId, chats) => {
 
 export const getSenderName = (roleKey = '', notification = {}) => {
     const map = {
-        R1: notification?.chat?.customerInfoData?.firstName,
-        R2: notification?.chat?.adminInfoData?.firstName,
+        R1: notification?.customerInfoData?.firstName,
+        R2: notification?.adminInfoData?.firstName,
     };
     return map[roleKey] || '';
+};
+
+export const getReaderInfo = (id = '', selectedChat = {}) => {
+    let readerInfo = {};
+
+    if (selectedChat?.userId1 === id) {
+        readerInfo = selectedChat?.user2InfoData || {};
+    } else if (selectedChat?.userId2 === id) {
+        readerInfo = selectedChat?.user1InfoData || {};
+    }
+    return readerInfo;
 };

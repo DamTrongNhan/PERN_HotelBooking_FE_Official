@@ -1,8 +1,8 @@
-export const getAllMemberChatByAdminIdService = (axiosPrivate, adminId) => {
-    return axiosPrivate.get(`/chatRealTimes/getAllMemberChatByAdminId/${adminId}`);
+export const getAllMemberChatService = axiosPrivate => {
+    return axiosPrivate.get(`/chatRealTimes/getAllMemberChat`);
 };
-export const getMemberChatByCustomerIdService = (axiosPrivate, data) => {
-    return axiosPrivate.post(`/chatRealTimes/getMemberChatByCustomerId`, data);
+export const getMemberChatService = (axiosPrivate, data) => {
+    return axiosPrivate.post(`/chatRealTimes/getMemberChat`, data);
 };
 
 export const createContentChatService = (axiosPrivate, data) => {
