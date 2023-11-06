@@ -114,7 +114,6 @@ const ChatRealTimes = () => {
             setIsLoading(true);
             const response = await getAllMemberChatByAdminIdService(axiosPrivate, id);
             if (response?.data?.data) {
-                console.log(response.data.data);
                 dispatch(updateChats(response.data.data));
                 setIsLoading(false);
             }
