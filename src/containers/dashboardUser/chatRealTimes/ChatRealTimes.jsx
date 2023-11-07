@@ -19,6 +19,7 @@ import {
     Drawer,
     InputBase,
     Skeleton,
+    Zoom,
 } from '@mui/material';
 import { Send, Search } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -48,7 +49,7 @@ import { updateSelectedChat, updateNotifications, updateChats } from 'store/slic
 import { LANGUAGES, getReaderInfo } from 'utils';
 
 import io from 'socket.io-client';
-const ENDPOINT = process.env.SERVER_APP_URL;
+const ENDPOINT = process.env.REACT_APP_SERVER_URL;
 var socket, selectedChatCompare;
 
 const ChatRealTimes = () => {
@@ -388,7 +389,6 @@ const ChatRealTimes = () => {
                             <Stack
                                 spacing={2}
                                 sx={{
-                                    height: '100%',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'flex-end',
@@ -402,17 +402,19 @@ const ChatRealTimes = () => {
                                             justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
                                         }}
                                     >
-                                        <Paper
-                                            sx={{
-                                                padding: 1,
-                                                backgroundColor: id === item?.senderId ? primary : primaryLight,
-                                                maxWidth: '80%',
-                                            }}
-                                        >
-                                            <Typography align="justify" variant="body2">
-                                                {item?.message}
-                                            </Typography>
-                                        </Paper>
+                                        <Zoom in={true}>
+                                            <Paper
+                                                sx={{
+                                                    padding: 1,
+                                                    backgroundColor: id === item?.senderId ? primary : primaryLight,
+                                                    maxWidth: '80%',
+                                                }}
+                                            >
+                                                <Typography align="justify" variant="body2">
+                                                    {item?.message}
+                                                </Typography>
+                                            </Paper>
+                                        </Zoom>
                                     </Box>
                                 ))}
                             </Stack>
@@ -431,16 +433,21 @@ const ChatRealTimes = () => {
                             </>
                         )}
                     </Grid>
-                    {isTyping && (
-                        <>
-                            <Grid xs={12} lg={12}>
-                                <animated.div style={typingAnimation}>Typing...</animated.div>
-                            </Grid>
-                        </>
-                    )}
 
                     {!_.isEmpty(selectedChat) && (
                         <>
+                            <animated.div style={typingAnimation}>
+                                <div className="lds-ellipsis">
+                                    {isTyping && (
+                                        <>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </>
+                                    )}
+                                </div>
+                            </animated.div>
                             <Grid xs={11} lg={11}>
                                 <TextField
                                     value={newMessage}
@@ -472,7 +479,7 @@ const ChatRealTimes = () => {
                 sx={{ zIndex: 10000 }}
             >
                 <FlexBetween backgroundColor={neutralLight} gap="0.8rem" padding="0.1rem 1.3rem">
-                    <InputBase placeholder="Search user..." onChange={event => handleSearch(event)} />
+                    <InputBase fullWidth placeholder="Search user..." onChange={event => handleSearch(event)} />
                     <IconButton>
                         <Search />
                     </IconButton>

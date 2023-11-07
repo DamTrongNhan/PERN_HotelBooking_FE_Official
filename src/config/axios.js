@@ -1,6 +1,6 @@
 import axios from 'axios';
 const axiosPublic = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: process.env.REACT_APP_SERVER_API_URL,
 });
 
 axiosPublic.interceptors.response.use(
@@ -12,9 +12,9 @@ axiosPublic.interceptors.response.use(
     }
 );
 const axiosPrivate = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: process.env.REACT_APP_SERVER_API_URL,
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true
+    withCredentials: true,
 });
 
 export { axiosPublic, axiosPrivate };
