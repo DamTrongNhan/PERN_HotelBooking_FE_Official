@@ -408,8 +408,8 @@ const ChatRealTimes = () => {
                     </Grid>
                 )}
                 <Grid container xs={12} lg={8}>
-                    <Box sx={{ width: '100%', height: 'calc(100vh - 250px)', overflowY: 'auto', p: 2 }}>
-                        <Stack direction="column" justifyContent="flex-end" spacing={2} pr={2} pb={3}>
+                    <Box sx={{ width: '100%', height: 'calc(100vh - 250px)', overflowY: 'auto', p: 1 }}>
+                        <Stack direction="column" justifyContent="flex-end" spacing={2}>
                             {!_.isEmpty(messages) ? (
                                 messages?.map((item, index) => (
                                     <Zoom in={true} key={index}>
@@ -447,7 +447,7 @@ const ChatRealTimes = () => {
                                     </Box>
                                 </>
                             )}
-                            <div ref={messagesEndRef} />
+                            <Box ref={messagesEndRef} p={3} />
                         </Stack>
                     </Box>
 
