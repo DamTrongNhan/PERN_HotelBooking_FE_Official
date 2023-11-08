@@ -400,28 +400,25 @@ const ChatRealTimes = () => {
                         </Stack>
                     </Grid>
                 )}
-                <Grid
-                    container
-                    xs={12}
-                    lg={8}
-                    sx={{
-                        alignItems: 'center',
-                        overflowY: 'auto',
-                        height: 'calc(100vh - 250px)',
-                    }}
-                >
-                    <Grid xs={12} lg={12} p={2} sx={{}}>
-                        {!_.isEmpty(messages) ? (
-                            <Stack spacing={2} justifyContent="flex-end">
-                                {messages?.map((item, index) => (
-                                    <Box
-                                        key={index}
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
-                                        }}
-                                    >
-                                        <Zoom in={true}>
+                <Grid container xs={12} lg={8}>
+                    <Box sx={{ height: 'calc(100vh - 250px)', overflowY: 'auto', p: 2 }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-end',
+                                gap: 2,
+                            }}
+                        >
+                            {!_.isEmpty(messages) ? (
+                                messages?.map((item, index) => (
+                                    <Zoom in={true} key={index}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
+                                            }}
+                                        >
                                             <Paper
                                                 sx={{
                                                     padding: 1,
@@ -433,25 +430,25 @@ const ChatRealTimes = () => {
                                                     {item?.message}
                                                 </Typography>
                                             </Paper>
-                                        </Zoom>
+                                        </Box>
+                                    </Zoom>
+                                ))
+                            ) : (
+                                <>
+                                    <Box width="100%" display="flex" justifyContent="center">
+                                        <img
+                                            alt="chat"
+                                            src={chatImage}
+                                            style={{
+                                                display: 'inline-block',
+                                                width: '55%',
+                                            }}
+                                        />
                                     </Box>
-                                ))}
-                            </Stack>
-                        ) : (
-                            <>
-                                <Box width="100%" display="flex" justifyContent="center">
-                                    <img
-                                        alt="chat"
-                                        src={chatImage}
-                                        style={{
-                                            display: 'inline-block',
-                                            width: '55%',
-                                        }}
-                                    />
-                                </Box>
-                            </>
-                        )}
-                    </Grid>
+                                </>
+                            )}
+                        </Box>
+                    </Box>
 
                     {!_.isEmpty(selectedChat) && (
                         <>
