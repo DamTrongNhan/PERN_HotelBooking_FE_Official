@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -23,8 +23,6 @@ import {
 } from '@mui/material';
 import { Send, ManageAccounts, PersonSearch, Search } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import { useSpring, animated } from '@react-spring/web';
 import { FormattedMessage } from 'react-intl';
@@ -71,6 +69,7 @@ const ChatRealTimes = () => {
 
     const language = useSelector(state => state.app.language);
     const [isLoading, setIsLoading] = useState(false);
+    const messagesEndRef = useRef(null);
 
     const { selectedChat = {}, notifications = [], chats = [] } = useSelector(state => state.chat);
     const id = useSelector(state => state.auth.userInfo?.id || '');
@@ -239,6 +238,7 @@ const ChatRealTimes = () => {
                 setIsLoading(false);
                 socket.emit('new message', { contentChat, selectedChat });
                 setMessages([...messages, contentChat]);
+                scrollToBottom();
             } else {
                 setIsLoading(false);
             }
@@ -278,7 +278,7 @@ const ChatRealTimes = () => {
 
     useEffect(() => {
         getAllContentChat();
-
+        scrollToBottom();
         selectedChatCompare = selectedChat;
         // eslint-disable-next-line
     }, [selectedChat]);
@@ -300,6 +300,10 @@ const ChatRealTimes = () => {
         opacity: isTyping ? 1 : 0,
         transform: isTyping ? 'translateY(0px)' : 'translateY(20px)',
     });
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <>
@@ -404,55 +408,46 @@ const ChatRealTimes = () => {
                 )}
                 <Grid container xs={12} lg={8}>
                     <Box sx={{ height: 'calc(100vh - 250px)', overflowY: 'auto', p: 2 }}>
-                        <PerfectScrollbar>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'flex-end',
-                                    gap: 2,
-                                    pr: 2,
-                                }}
-                            >
-                                {!_.isEmpty(messages) ? (
-                                    messages?.map((item, index) => (
-                                        <Zoom in={true} key={index}>
-                                            <Box
+                        <Stack direction="column" justifyContent="flex-end" spacing={2} pr={2} pb={3}>
+                            {!_.isEmpty(messages) ? (
+                                messages?.map((item, index) => (
+                                    <Zoom in={true} key={index}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
+                                            }}
+                                        >
+                                            <Paper
                                                 sx={{
-                                                    display: 'flex',
-                                                    justifyContent: id === item?.senderId ? 'flex-end' : 'flex-start',
+                                                    padding: 1,
+                                                    backgroundColor: id === item?.senderId ? primary : primaryLight,
+                                                    maxWidth: '80%',
                                                 }}
                                             >
-                                                <Paper
-                                                    sx={{
-                                                        padding: 1,
-                                                        backgroundColor: id === item?.senderId ? primary : primaryLight,
-                                                        maxWidth: '80%',
-                                                    }}
-                                                >
-                                                    <Typography align="justify" variant="body2">
-                                                        {item?.message}
-                                                    </Typography>
-                                                </Paper>
-                                            </Box>
-                                        </Zoom>
-                                    ))
-                                ) : (
-                                    <>
-                                        <Box width="100%" display="flex" justifyContent="center">
-                                            <img
-                                                alt="chat"
-                                                src={chatImage}
-                                                style={{
-                                                    display: 'inline-block',
-                                                    width: '55%',
-                                                }}
-                                            />
+                                                <Typography align="justify" variant="body2">
+                                                    {item?.message}
+                                                </Typography>
+                                            </Paper>
                                         </Box>
-                                    </>
-                                )}
-                            </Box>
-                        </PerfectScrollbar>
+                                    </Zoom>
+                                ))
+                            ) : (
+                                <>
+                                    <Box width="100%" display="flex" justifyContent="center">
+                                        <img
+                                            alt="chat"
+                                            src={chatImage}
+                                            style={{
+                                                display: 'inline-block',
+                                                width: '55%',
+                                            }}
+                                        />
+                                    </Box>
+                                </>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </Stack>
                     </Box>
 
                     {!_.isEmpty(selectedChat) && (
