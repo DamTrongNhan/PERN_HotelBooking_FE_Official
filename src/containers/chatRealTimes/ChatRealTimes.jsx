@@ -21,11 +21,10 @@ import {
     Skeleton,
     Zoom,
 } from '@mui/material';
-import { Send, Search } from '@mui/icons-material';
+import { Send, ManageAccounts, PersonSearch, Search } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { useSpring, animated } from '@react-spring/web';
-
 import { FormattedMessage } from 'react-intl';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
@@ -34,6 +33,7 @@ import _, { debounce } from 'lodash';
 import chatImage from 'assets/image/chat.png';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 import FlexBetween from 'components/common/FlexBetween';
+import './typing.css';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 
@@ -43,10 +43,11 @@ import {
     createContentChatService,
     getAllContentChatService,
     getAllUsersSearchService,
+    getMemberChatAdminService,
 } from 'services/chatRealTimesService';
 
 import { updateSelectedChat, updateNotifications, updateChats } from 'store/slice/chatSlice';
-import { LANGUAGES, getReaderInfo } from 'utils';
+import { LANGUAGES, getPartnerInfo, getTimeAgo } from 'utils';
 
 import io from 'socket.io-client';
 const ENDPOINT = process.env.REACT_APP_SERVER_URL;
@@ -71,6 +72,7 @@ const ChatRealTimes = () => {
 
     const { selectedChat = {}, notifications = [], chats = [] } = useSelector(state => state.chat);
     const id = useSelector(state => state.auth.userInfo?.id || '');
+    const roleKey = useSelector(state => state.auth.userInfo?.roleKey || '');
 
     const [searchToggled, setSearchToggled] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
@@ -151,6 +153,28 @@ const ChatRealTimes = () => {
         }
     };
 
+    const getMemberChatAdmin = async () => {
+        try {
+            setIsLoading(true);
+            const response = await getMemberChatAdminService(axiosPrivate);
+            if (response?.data?.data) {
+                const chat = response.data.data;
+                if (!chats.find(c => c.id === chat.id)) dispatch(updateChats([chat, ...chats]));
+                dispatch(updateSelectedChat(chat));
+                setIsLoading(false);
+            }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error(error.message);
+            }
+            setIsLoading(false);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const getAllContentChat = async () => {
         try {
             if (!selectedChat?.id) return;
@@ -174,25 +198,45 @@ const ChatRealTimes = () => {
             setIsLoading(false);
         }
     };
+    const typingHandler = event => {
+        setNewMessage(event.target.value);
+
+        if (!socketConnected) return;
+
+        if (!typing) {
+            setTyping(true);
+            socket.emit('typing', selectedChat.id);
+        }
+        let lastTypingTime = new Date().getTime();
+        var timerLength = 3000;
+        setTimeout(() => {
+            var timeNow = new Date().getTime();
+            var timeDiff = timeNow - lastTypingTime;
+            if (timeDiff >= timerLength && typing) {
+                socket.emit('stop typing', selectedChat.id);
+                setTyping(false);
+            }
+        }, timerLength);
+    };
 
     const createContentChat = async event => {
+        if (!newMessage) return;
         try {
-            if (event.key !== 'Enter' || !newMessage) return;
             socket.emit('stop typing', selectedChat.id);
 
             setIsLoading(true);
             setNewMessage('');
             const response = await createContentChatService(axiosPrivate, {
                 memberChatId: selectedChat?.id,
-                readerId: getReaderInfo(id, selectedChat).id,
+                readerId: getPartnerInfo(id, selectedChat).id,
                 message: newMessage,
             });
             if (response?.data?.data) {
-                const message = response.data.data;
+                const contentChat = response.data.data;
 
                 setIsLoading(false);
-                socket.emit('new message', message);
-                setMessages([...messages, message]);
+                socket.emit('new message', { contentChat, selectedChat });
+                setMessages([...messages, contentChat]);
             } else {
                 setIsLoading(false);
             }
@@ -205,6 +249,13 @@ const ChatRealTimes = () => {
             setIsLoading(false);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleKeyDown = event => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            createContentChat();
         }
     };
 
@@ -232,40 +283,16 @@ const ChatRealTimes = () => {
 
     useEffect(() => {
         socket.on('message received', newMessageReceived => {
-            if (
-                !selectedChatCompare || // if chat is not selected or doesn't match current chat
-                selectedChatCompare.id !== newMessageReceived.memberChatId
-            ) {
-                if (!notifications.includes(newMessageReceived)) {
-                    dispatch(updateNotifications([newMessageReceived, ...notifications]));
+            if (!selectedChatCompare || selectedChatCompare?.id !== newMessageReceived?.contentChat?.memberChatId) {
+                if (!notifications.includes(newMessageReceived?.selectedChat)) {
+                    dispatch(updateNotifications([newMessageReceived?.selectedChat, ...notifications]));
                     setFetchAgain(!fetchAgain);
                 }
             } else {
-                setMessages([...messages, newMessageReceived]);
+                setMessages([...messages, newMessageReceived?.contentChat]);
             }
         });
     });
-
-    const typingHandler = event => {
-        setNewMessage(event.target.value);
-
-        if (!socketConnected) return;
-
-        if (!typing) {
-            setTyping(true);
-            socket.emit('typing', selectedChat.id);
-        }
-        let lastTypingTime = new Date().getTime();
-        var timerLength = 3000;
-        setTimeout(() => {
-            var timeNow = new Date().getTime();
-            var timeDiff = timeNow - lastTypingTime;
-            if (timeDiff >= timerLength && typing) {
-                socket.emit('stop typing', selectedChat.id);
-                setTyping(false);
-            }
-        }, timerLength);
-    };
 
     const typingAnimation = useSpring({
         opacity: isTyping ? 1 : 0,
@@ -279,13 +306,20 @@ const ChatRealTimes = () => {
                 <Grid xs={12} lg={12}>
                     <FlexBetween>
                         <Tooltip title="Search">
-                            <IconButton onClick={() => setSearchToggled(!searchToggled)}>
-                                <Search />
+                            <IconButton onClick={() => setSearchToggled(!searchToggled)} size="large">
+                                <PersonSearch fontSize="inherit" />
                             </IconButton>
                         </Tooltip>
+                        {roleKey === 'R2' && (
+                            <Tooltip title="Chat with Administrator">
+                                <IconButton onClick={() => getMemberChatAdmin()} size="large">
+                                    <ManageAccounts fontSize="inherit" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                         <Avatar
                             alt="avatar-customer"
-                            src={getReaderInfo(id, selectedChat)?.avatarData?.url || ''}
+                            src={getPartnerInfo(id, selectedChat)?.avatarData?.url || ''}
                             sx={{ cursor: 'pointer' }}
                         />
                     </FlexBetween>
@@ -309,29 +343,27 @@ const ChatRealTimes = () => {
                                       >
                                           <CardHeader
                                               avatar={
-                                                  <Badge badgeContent={4} color="primary">
-                                                      <Avatar
-                                                          aria-label="avatar"
-                                                          src={getReaderInfo(id, chat)?.avatarData?.url || ''}
-                                                      />
-                                                  </Badge>
+                                                  <Avatar
+                                                      aria-label="avatar"
+                                                      src={getPartnerInfo(id, chat)?.avatarData?.url || ''}
+                                                  />
                                               }
                                               action={
                                                   <Typography variant="body2">
                                                       {chat?.contentChatData?.length > 0 &&
-                                                          dayjs(
+                                                          getTimeAgo(
                                                               chat.contentChatData[chat.contentChatData.length - 1]
                                                                   .createdAt
-                                                          ).format('DD/MM/YYYY')}
+                                                          )}
                                                   </Typography>
                                               }
                                               title={
                                                   LANGUAGES.VI === language
-                                                      ? `${getReaderInfo(id, chat)?.lastName} ${
-                                                            getReaderInfo(id, chat)?.firstName
+                                                      ? `${getPartnerInfo(id, chat)?.lastName} ${
+                                                            getPartnerInfo(id, chat)?.firstName
                                                         }`
-                                                      : `${getReaderInfo(id, chat)?.firstName} ${
-                                                            getReaderInfo(id, chat)?.lastName
+                                                      : `${getPartnerInfo(id, chat)?.firstName} ${
+                                                            getPartnerInfo(id, chat)?.lastName
                                                         }`
                                               }
                                               subheader={
@@ -374,26 +406,13 @@ const ChatRealTimes = () => {
                     lg={8}
                     sx={{
                         alignItems: 'center',
+                        overflowY: 'auto',
+                        height: 'calc(100vh - 250px)',
                     }}
                 >
-                    <Grid
-                        xs={12}
-                        lg={12}
-                        p={2}
-                        sx={{
-                            overflowY: 'auto',
-                            height: 'calc(100vh - 250px)',
-                        }}
-                    >
+                    <Grid xs={12} lg={12} p={2} sx={{}}>
                         {!_.isEmpty(messages) ? (
-                            <Stack
-                                spacing={2}
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'flex-end',
-                                }}
-                            >
+                            <Stack spacing={2} justifyContent="flex-end">
                                 {messages?.map((item, index) => (
                                     <Box
                                         key={index}
@@ -448,10 +467,11 @@ const ChatRealTimes = () => {
                                     )}
                                 </div>
                             </animated.div>
+
                             <Grid xs={11} lg={11}>
                                 <TextField
                                     value={newMessage}
-                                    onKeyDown={event => createContentChat(event)}
+                                    onKeyDown={event => handleKeyDown(event)}
                                     onChange={event => typingHandler(event)}
                                     fullWidth
                                     variant="standard"
@@ -459,7 +479,7 @@ const ChatRealTimes = () => {
                                 />
                             </Grid>
                             <Grid xs={1} lg={1}>
-                                <Button fullWidth variant="contained" color="info">
+                                <Button onClick={() => createContentChat()} fullWidth variant="contained" color="info">
                                     <Send />
                                 </Button>
                             </Grid>

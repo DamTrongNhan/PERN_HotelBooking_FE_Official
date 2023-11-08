@@ -5,6 +5,10 @@ export const getMemberChatService = (axiosPrivate, data) => {
     return axiosPrivate.post(`/chatRealTimes/getMemberChat`, data);
 };
 
+export const getMemberChatAdminService = axiosPrivate => {
+    return axiosPrivate.get(`/chatRealTimes/getMemberChatAdmin`);
+};
+
 export const createContentChatService = (axiosPrivate, data) => {
     return axiosPrivate.post('/chatRealTimes/createContentChat', data);
 };

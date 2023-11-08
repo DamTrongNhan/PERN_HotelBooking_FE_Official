@@ -33,7 +33,6 @@ import AdminTablePosts from 'containers/dashboardAdmin/posts/TablePosts';
 import AdminMail from 'containers/dashboardAdmin/mail/Mail';
 import AdminTableReviews from 'containers/dashboardAdmin/reviews/TableReviews';
 import AdminSettings from 'containers/dashboardAdmin/settings/Settings';
-import AdminChatRealTimes from 'containers/dashboardAdmin/chatRealTimes/ChatRealTimes';
 
 // User
 import UserTableBookings from 'containers/dashboardUser/bookings/TableBookings';
@@ -41,7 +40,6 @@ import UserProfile from 'containers/dashboardUser/profile/Profile';
 import UserTableHistories from 'containers/dashboardUser/histories/TableHistories';
 import UserTableReviews from 'containers/dashboardUser/reviews/TableReviews';
 import UserSettings from 'containers/dashboardAdmin/settings/Settings';
-import UserChatRealTimes from 'containers/dashboardUser/chatRealTimes/ChatRealTimes';
 
 // Guest
 import GuestHomePage from 'containers/guest/homePage/HomePage';
@@ -52,6 +50,9 @@ import GuestVerifyBooking from 'containers/guest/booking/VerifyBooking';
 import GuestPaymentStatusVnpay from 'containers/guest/booking/PaymentStatusVnpay';
 import GuestGallery from 'containers/guest/gallery/Gallery';
 import GuestPosts from 'containers/guest/posts/Posts';
+
+// chat real times
+import ChatRealTimes from 'containers/chatRealTimes/ChatRealTimes';
 
 // *
 import NotFound from 'components/common/NotFound';
@@ -111,7 +112,7 @@ const App = () => {
                             <Route path={DASHBOARD_ADMIN_PATHS.MAIL} element={<AdminMail />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.REVIEWS} element={<AdminTableReviews />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.SETTINGS} element={<AdminSettings />} />
-                            <Route path={DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES} element={<AdminChatRealTimes />} />
+                            <Route path={DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES} element={<ChatRealTimes />} />
                         </Route>
                         {/* User */}
                         <Route path={DASHBOARD_USER_PATHS.DASHBOARD} element={<DashboardLayoutUser />}>
@@ -121,7 +122,7 @@ const App = () => {
                             <Route path={DASHBOARD_USER_PATHS.HISTORIES} element={<UserTableHistories />} />
                             <Route path={DASHBOARD_USER_PATHS.REVIEWS} element={<UserTableReviews />} />
                             <Route path={DASHBOARD_USER_PATHS.SETTINGS} element={<UserSettings />} />
-                            <Route path={DASHBOARD_USER_PATHS.CHAT_REAL_TIMES} element={<UserChatRealTimes />} />
+                            <Route path={DASHBOARD_USER_PATHS.CHAT_REAL_TIMES} element={<ChatRealTimes />} />
                         </Route>
                         {/* Auth */}
                         <Route element={<AuthLayout />}>

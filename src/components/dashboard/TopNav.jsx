@@ -17,7 +17,6 @@ import {
     Fade,
     Paper,
     Button,
-    Divider,
     List,
     ListItem,
     ListItemText,
@@ -48,7 +47,7 @@ import { updateSelectedChat, updateNotifications, removeChatState } from 'store/
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { signOutService } from 'services/authServices';
 
-import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES } from 'utils';
+import { DASHBOARD_ADMIN_PATHS, DASHBOARD_USER_PATHS, GUEST_PATHS, LANGUAGES, getPartnerInfo } from 'utils';
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -68,8 +67,9 @@ const TopNav = props => {
     const [isLoading, setIsLoading] = useState(false);
 
     const language = useSelector(state => state.app.language);
+    const id = useSelector(state => state.auth.userInfo?.id || '');
     const roleKey = useSelector(state => state.auth.userInfo?.roleKey || '');
-    const { notifications } = useSelector(state => state.chat);
+    const { notifications = [] } = useSelector(state => state.chat);
 
     const [anchorElLanguageDesk, setAnchorElLanguageDesk] = useState(null);
     const [openLanguageDesk, setOpenLanguageDesk] = useState(false);
@@ -92,6 +92,13 @@ const TopNav = props => {
             navigate(DASHBOARD_ADMIN_PATHS.SETTINGS);
         } else if (roleKey === 'R2') {
             navigate(DASHBOARD_USER_PATHS.SETTINGS);
+        }
+    };
+    const handleNavigateChat = () => {
+        if (roleKey === 'R1') {
+            navigate(DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES);
+        } else if (roleKey === 'R2') {
+            navigate(DASHBOARD_USER_PATHS.CHAT_REAL_TIMES);
         }
     };
 
@@ -229,34 +236,26 @@ const TopNav = props => {
                                     <Paper elevation={6} sx={{ mt: 2, p: 2 }}>
                                         <List>
                                             {!_.isEmpty(notifications) ? (
-                                                <ListItem alignItems="flex-start">
-                                                    {notifications.map((notification, index) => (
+                                                notifications.map((notification, index) => (
+                                                    <ListItem key={index} alignItems="flex-start" divider>
                                                         <ListItemText
-                                                            key={index}
+                                                            sx={{ cursor: 'pointer' }}
                                                             onClick={() => {
-                                                                updateSelectedChat(notification);
-                                                                updateNotifications(
-                                                                    notifications.filter(n => n !== notification)
+                                                                dispatch(updateSelectedChat(notification));
+                                                                dispatch(
+                                                                    updateNotifications(
+                                                                        notifications.filter(n => n !== notification)
+                                                                    )
                                                                 );
+                                                                handleNavigateChat();
                                                             }}
-                                                            // primary={notification}
+                                                            primary={getPartnerInfo(id, notification)?.firstName}
                                                             secondary={
-                                                                <>
-                                                                    <Typography
-                                                                        sx={{ display: 'inline' }}
-                                                                        component="span"
-                                                                        variant="body2"
-                                                                        color="text.primary"
-                                                                    >
-                                                                        <FormattedMessage id="dashboardAdmin.chatRealTimes.message" />
-                                                                        {notification?.senderInfo?.firstName}
-                                                                    </Typography>
-                                                                </>
+                                                                <FormattedMessage id="dashboardAdmin.chatRealTimes.message" />
                                                             }
                                                         />
-                                                    ))}
-                                                    <Divider variant="inset" component="li" />
-                                                </ListItem>
+                                                    </ListItem>
+                                                ))
                                             ) : (
                                                 <Typography variant="body2">
                                                     <FormattedMessage id="dashboardAdmin.chatRealTimes.noMessages" />
