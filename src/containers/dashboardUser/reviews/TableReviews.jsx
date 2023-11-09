@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Box, IconButton, Typography } from '@mui/material';
-import { Delete, Visibility } from '@mui/icons-material';
+import { Delete, Edit, Visibility } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 
 import { toast } from 'react-toastify';
@@ -14,25 +14,27 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { deleteReviewService, getAllReviewsService } from 'services/reviewsService';
+import { deleteReviewService, getAllReviewsByUserIdService } from 'services/reviewsService';
 
 import DialogViewReview from './DialogViewReview';
 import DialogConfirmDelete from 'components/dashboard/DialogConfirmDelete';
+import DialogUpdateReview from './DialogUpdateReview';
 import { LANGUAGES } from 'utils';
 
 const TableAllReviews = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const language = useSelector(state => state.app.language || '');
+    const userId = useSelector(state => state.auth.userInfo?.id || '');
+    const [isLoading, setIsLoading] = useState(false);
 
     const [allReviews, setAllReviews] = useState([]);
     const [idReview, setIdReview] = useState(null);
-
-    const [isLoading, setIsLoading] = useState(false);
     const [currentReview, setCurrentReview] = useState(null);
 
     const [openDialogDelete, setOpenDialogDelete] = useState(false);
     const [openDialogView, setOpenDialogView] = useState(false);
+    const [openDialogUpdate, setOpenDialogUpdate] = useState(false);
 
     useEffect(() => {
         getAllReviews();
@@ -42,9 +44,9 @@ const TableAllReviews = () => {
     const getAllReviews = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllReviewsService(axiosPrivate);
-            if (response?.data) {
-                setAllReviews(response.data);
+            const response = await getAllReviewsByUserIdService(axiosPrivate, userId);
+            if (response?.data?.data) {
+                setAllReviews(response.data.data);
                 setIsLoading(false);
             } else {
                 setIsLoading(false);
@@ -67,6 +69,10 @@ const TableAllReviews = () => {
     const handleToggleDialogView = review => {
         setCurrentReview(review);
         setOpenDialogView(!openDialogView);
+    };
+    const handleToggleDialogUpdate = review => {
+        setCurrentReview(review);
+        setOpenDialogUpdate(!openDialogUpdate);
     };
 
     const handleDelete = async () => {
@@ -147,6 +153,9 @@ const TableAllReviews = () => {
                         <IconButton onClick={() => handleToggleDialogDelete(row.id)} aria-label="delete" size="small">
                             <Delete fontSize="inherit" />
                         </IconButton>
+                        <IconButton onClick={() => handleToggleDialogUpdate(row)} aria-label="delete" size="small">
+                            <Edit fontSize="inherit" />
+                        </IconButton>
                     </Box>
                 );
             },
@@ -206,6 +215,14 @@ const TableAllReviews = () => {
             <DialogViewReview
                 handleToggleDialogView={handleToggleDialogView}
                 openDialogView={openDialogView}
+                currentReview={currentReview}
+                getAllReviews={getAllReviews}
+                setIsLoading={setIsLoading}
+            />
+
+            <DialogUpdateReview
+                handleToggleDialogUpdate={handleToggleDialogUpdate}
+                openDialogUpdate={openDialogUpdate}
                 currentReview={currentReview}
                 getAllReviews={getAllReviews}
                 setIsLoading={setIsLoading}

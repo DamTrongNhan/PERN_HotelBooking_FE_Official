@@ -244,6 +244,7 @@
             "title": "Reviews",
             "subtitle": "Reviews management",
             "viewSubtitle": "Review details",
+            "updateSubtitle": "Review update",
             "details": {
                 "roomType": "Room type",
                 "userEmail": "User email",

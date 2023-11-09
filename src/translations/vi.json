@@ -245,6 +245,7 @@
             "title": "Đánh giá ",
             "subtitle": "Quản lí đánh giá",
             "viewSubtitle": "Chi tiết đánh giá",
+            "updateSubtitle": "Chỉnh sửa đánh giá",
             "details": {
                 "roomType": "Loại phòng",
                 "userEmail": "Email người dùng",
