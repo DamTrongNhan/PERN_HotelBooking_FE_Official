@@ -28,9 +28,7 @@ import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import { signIn } from 'store/slice/authSlice';
 
-import { AUTH_PATHS } from 'utils';
-
-import { getGoogleUrl } from 'utils';
+import { AUTH_PATHS, getGoogleUrl } from 'utils';
 
 const SignIn = () => {
     const navigate = useNavigate();

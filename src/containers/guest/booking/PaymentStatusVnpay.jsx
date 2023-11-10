@@ -11,43 +11,34 @@ import { toast } from 'react-toastify';
 
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
-import { WithBookingIsAuthenticatedGuard } from 'hoc/WithBookingIsAuthenticatedGuard';
-import { checkBookingStatusService } from 'services/bookingsVnpayService';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
+import { WithBookingIsAuthenticatedGuard } from 'hoc/WithBookingIsAuthenticatedGuard';
+import { getBookingByBookingCodeService } from 'services/bookingsService';
+import { repaymentService } from 'services/bookingsVnpayService';
 
 import { GUEST_PATHS, NOT_FOUND, LANGUAGES } from 'utils';
 
 const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
+    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const ignore = useRef(false);
-    const language = useSelector(state => state.app.language);
-    const axiosPrivate = useAxiosPrivate();
 
+    const language = useSelector(state => state.app.language);
+
+    const [booking, setBooking] = useState({});
     const [status, setStatus] = useState(false);
     const [messageVi, setMessageVi] = useState('');
     const [messageEn, setMessageEn] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [bookingCode, setBookingCode] = useState('');
-
-    const checkBookingStatus = async bookingCode => {
+    const getBooking = async bookingCode => {
         try {
             setIsLoading(true);
 
-            const response = await checkBookingStatusService(axiosPrivate, bookingCode);
-            if (response?.data) {
-                console.log(response);
-                setBookingCode(response?.data?.data?.bookingCode);
-                if (response.data?.data?.paymentStatusKey === 'SP1') {
-                    setStatus(false);
-                    setMessageVi('Đơn của bạn chưa được thanh toán do nguyên nhân lỗi hoặc lí do khác');
-                    setMessageEn('Your order has not been paid due to an error or other reasons.');
-                } else {
-                    setStatus(true);
-                    setMessageEn('The order has been paid');
-                    setMessageVi('Đơn hàng đã được thanh toán');
-                }
+            const response = await getBookingByBookingCodeService(axiosPrivate, bookingCode);
+            if (response?.data?.data) {
+                setBooking(response.data.data);
             } else {
                 setStatus(false);
                 setMessageVi('Không tìm thấy đơn');
@@ -64,16 +55,44 @@ const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
         }
     };
 
-    useEffect(() => {
-        if (ignore.current) {
-            return;
+    const repayment = async () => {
+        try {
+            setIsLoading(true);
+
+            const response = await repaymentService(axiosPrivate, booking);
+            if (response?.data?.paymentUrl) {
+                window.open(response.data.paymentUrl, '_self');
+            } else {
+                setIsLoading(false);
+            }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error(error.message);
+            }
+        } finally {
+            setIsLoading(false);
         }
+    };
+
+    useEffect(() => {
+        if (ignore.current) return;
         ignore.current = true;
 
-        const bookingCode = Cookies.get('bookingCode');
+        const paymentStatus = Cookies.get('paymentStatus');
 
-        if (bookingCode) {
-            checkBookingStatus(bookingCode);
+        if (paymentStatus) {
+            const { bookingCode = '', isSuccess = false } = JSON.parse(paymentStatus);
+            if (isSuccess) {
+                setStatus(true);
+                setMessageEn('The order has been paid');
+                setMessageVi('Đơn hàng đã được thanh toán');
+            } else {
+                setMessageVi('Đơn của bạn chưa được thanh toán do nguyên nhân lỗi hoặc lí do khác');
+                setMessageEn('Your order has not been paid due to an error or other reasons.');
+            }
+            getBooking(bookingCode);
         } else {
             navigate(NOT_FOUND);
         }
@@ -100,7 +119,7 @@ const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
 
                         <Typography align="center" variant="subtitle1" gutterBottom>
                             <FormattedMessage id="guest.booking.bookingCode" />
-                            {bookingCode}
+                            {booking?.bookingCode}
                         </Typography>
 
                         <Typography align="center" variant="h2" color={status ? 'success' : 'error'} gutterBottom>
@@ -121,7 +140,13 @@ const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
                             </Grid>
                             {!status && (
                                 <Grid>
-                                    <Button onClick={() => {}} variant="contained" color="secondary">
+                                    <Button
+                                        onClick={() => {
+                                            repayment();
+                                        }}
+                                        variant="contained"
+                                        color="secondary"
+                                    >
                                         <FormattedMessage id="guest.paymentStatus.repayment" />
                                     </Button>
                                 </Grid>

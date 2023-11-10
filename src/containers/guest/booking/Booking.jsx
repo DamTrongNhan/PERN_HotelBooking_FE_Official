@@ -220,10 +220,10 @@ const Booking = WithBookingIsAuthenticatedGuard(() => {
             let response;
             if (data.paymentTypeKey === 'P2') {
                 response = await createBookingWithVnpayService(axiosPrivate, data);
-                if (response?.data) {
+                if (response?.data?.paymentUrl) {
                     dispatch(deleteBookingData());
                     setIsLoading(false);
-                    window.open(response?.data.paymentUrl, '_self');
+                    window.open(response.data.paymentUrl, '_self');
                 }
             } else if (data.paymentTypeKey === 'P1') {
                 response = await createBookingService(axiosPrivate, data);

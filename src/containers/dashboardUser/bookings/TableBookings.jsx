@@ -2,18 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Box, IconButton, FormControl, Select, MenuItem, Button, useTheme, Typography } from '@mui/material';
-import {
-    Help,
-    MarkEmailRead,
-    EventAvailable,
-    ExitToApp,
-    Cancel,
-    Person,
-    MeetingRoom,
-    BookOnline,
-    CheckCircle,
-    Visibility,
-} from '@mui/icons-material';
+import { Help, MarkEmailRead, EventAvailable, ExitToApp, Cancel, CheckCircle, Visibility } from '@mui/icons-material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import { toast } from 'react-toastify';
