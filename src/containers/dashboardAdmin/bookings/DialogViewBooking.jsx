@@ -41,8 +41,8 @@ const DialogViewBooking = props => {
                 {
                     primary:
                         LANGUAGES.VI === language
-                            ? currentBooking.roomDataBookings.roomTypeDataRooms.valueVi
-                            : currentBooking.roomDataBookings.roomTypeDataRooms.valueEn,
+                            ? currentBooking?.roomDataBookings?.roomTypeDataRooms?.valueVi
+                            : currentBooking?.roomDataBookings?.roomTypeDataRooms?.valueEn,
                     secondary: <FormattedMessage id="guest.booking.reviewBooking.roomType" />,
                 },
                 {
@@ -95,15 +95,15 @@ const DialogViewBooking = props => {
                 {
                     primary:
                         LANGUAGES.VI === language
-                            ? currentBooking.paymentTypeDataBookings.valueVi
-                            : currentBooking.paymentTypeDataBookings.valueEn,
+                            ? currentBooking?.paymentData?.paymentTypeData.valueVi
+                            : currentBooking?.paymentData?.paymentTypeData.valueEn,
                     secondary: <FormattedMessage id="guest.booking.reviewBooking.paymentType" />,
                 },
                 {
                     primary:
                         LANGUAGES.VI === language
-                            ? currentBooking.paymentStatusData.valueVi
-                            : currentBooking.paymentStatusData.valueEn,
+                            ? currentBooking?.paymentData?.paymentStatusData.valueVi
+                            : currentBooking?.paymentData?.paymentStatusData.valueEn,
                     secondary: <FormattedMessage id="guest.booking.reviewBooking.paymentStatus" />,
                 },
             ];
@@ -172,23 +172,28 @@ const DialogViewBooking = props => {
                         <List disablePadding>
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <Grid container spacing={2} xs={12} lg={12}>
-                                    <ListItemText
-                                        primary={
-                                            LANGUAGES.VI === language
-                                                ? currentBooking.bookingStatusData.valueVi
-                                                : currentBooking.bookingStatusData.valueEn
-                                        }
-                                        secondary={
-                                            <FormattedMessage id="dashboardAdmin.bookings.details.bookingStatus" />
-                                        }
-                                    />
-                                    {currentBooking?.cancelTime && (
+                                    <Grid xs={12} lg={6}>
                                         <ListItemText
-                                            primary={dayjs(currentBooking.cancelTime).format('DD/MM/YYYY HH:mm:ss')}
+                                            primary={
+                                                LANGUAGES.VI === language
+                                                    ? currentBooking.bookingStatusData.valueVi
+                                                    : currentBooking.bookingStatusData.valueEn
+                                            }
                                             secondary={
-                                                <FormattedMessage id="dashboardAdmin.bookings.details.cancelTime" />
+                                                <FormattedMessage id="dashboardAdmin.bookings.details.bookingStatus" />
                                             }
                                         />
+                                    </Grid>
+
+                                    {currentBooking?.cancelTime && (
+                                        <Grid xs={12} lg={6}>
+                                            <ListItemText
+                                                primary={dayjs(currentBooking.cancelTime).format('DD/MM/YYYY HH:mm:ss')}
+                                                secondary={
+                                                    <FormattedMessage id="dashboardAdmin.bookings.details.cancelTime" />
+                                                }
+                                            />
+                                        </Grid>
                                     )}
                                 </Grid>
                             </ListItem>

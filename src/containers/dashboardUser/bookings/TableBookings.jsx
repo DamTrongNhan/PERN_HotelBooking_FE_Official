@@ -14,10 +14,10 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { getAllBookingsService, updateBookingStatusService } from 'services/bookingsService';
+import { getAllBookingsByUserIdService, updateBookingStatusService } from 'services/bookingsService';
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
-import DialogViewBooking from './DialogViewBooking';
+import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
 
 import { LANGUAGES } from 'utils';
 
@@ -26,6 +26,8 @@ const TableBookings = () => {
     const language = useSelector(state => state.app.language || 'vi');
 
     const theme = useTheme();
+
+    const userId = useSelector(state => state.auth.userInfo?.id || '');
 
     const [allBookings, setAllBookings] = useState([]);
     const [allBookingStatus, setAllBookingStatus] = useState([]);
@@ -54,7 +56,7 @@ const TableBookings = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingsService(axiosPrivate);
+            const response = await getAllBookingsByUserIdService(axiosPrivate, userId);
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 
