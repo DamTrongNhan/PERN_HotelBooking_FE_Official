@@ -1,6 +1,6 @@
 const exchangeRate = 0.000043;
 
-export const formatCurrencyUSD = amount => {
+export const formatCurrencyUSD = (amount = 0) => {
     const value = amount * exchangeRate;
     return value.toLocaleString('en-US', {
         style: 'currency',
@@ -8,7 +8,7 @@ export const formatCurrencyUSD = amount => {
     });
 };
 
-export const formatCurrencyVND = value => {
+export const formatCurrencyVND = (value = 0) => {
     return value
         .toLocaleString('vi-VN', {
             style: 'currency',

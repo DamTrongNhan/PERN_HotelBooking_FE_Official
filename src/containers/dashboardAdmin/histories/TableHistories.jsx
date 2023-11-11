@@ -220,7 +220,7 @@ const TableBookingHistories = () => {
             headerName: 'Actions',
             headerAlign: 'center',
             align: 'center',
-            minWidth: 200,
+            minWidth: 150,
             renderCell: ({ row }) => {
                 return (
                     <Box display="flex" justifyContent="center" alignItems="center" gap={1}>

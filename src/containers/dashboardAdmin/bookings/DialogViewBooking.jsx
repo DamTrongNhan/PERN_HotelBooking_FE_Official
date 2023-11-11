@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
 
+import * as DOMPurify from 'dompurify';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import _ from 'lodash';
@@ -256,6 +257,15 @@ const DialogViewBooking = props => {
                                                 <ListItemText primary={item.primary} secondary={item.secondary} />
                                             </Grid>
                                         ))}
+                                    {currentBooking?.paymentData?.details && (
+                                        <Grid xs={12} lg={6}>
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html: currentBooking?.paymentData?.details,
+                                                }}
+                                            />
+                                        </Grid>
+                                    )}
                                 </Grid>
                             </ListItem>
                         </List>

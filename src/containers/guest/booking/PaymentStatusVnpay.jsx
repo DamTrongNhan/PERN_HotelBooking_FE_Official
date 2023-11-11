@@ -69,13 +69,13 @@ const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
                                 : bookingData?.roomDataBookings?.roomTypeDataRooms?.valueEn,
                         secondary: <FormattedMessage id="guest.booking.reviewBooking.roomType" />,
                     },
-                    // {
-                    //     primary:
-                    //         language === LANGUAGES.VI
-                    //             ? formatCurrencyVND(bookingData?.roomDataBookings.roomTypesDataRooms?.pricePerNight)
-                    //             : formatCurrencyUSD(bookingData?.roomDataBookings.roomTypesDataRooms?.pricePerNight),
-                    //     secondary: <FormattedMessage id="guest.booking.reviewBooking.pricePerNight" />,
-                    // },
+                    {
+                        primary:
+                            language === LANGUAGES.VI
+                                ? formatCurrencyVND(bookingData?.roomDataBookings.roomTypesDataRooms?.pricePerNight)
+                                : formatCurrencyUSD(bookingData?.roomDataBookings.roomTypesDataRooms?.pricePerNight),
+                        secondary: <FormattedMessage id="guest.booking.reviewBooking.pricePerNight" />,
+                    },
                     {
                         primary: bookingData.bookingCode,
                         secondary: <FormattedMessage id="dashboardAdmin.bookings.details.bookingCode" />,
@@ -320,11 +320,11 @@ const VerifyBooking = WithBookingIsAuthenticatedGuard(() => {
                             <Divider />
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Total" />
-                                {/* <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                                     {language === LANGUAGES.VI
                                         ? formatCurrencyVND(booking?.totalPrice)
                                         : formatCurrencyUSD(booking?.totalPrice)}
-                                </Typography> */}
+                                </Typography>
                             </ListItem>
                         </List>
 
