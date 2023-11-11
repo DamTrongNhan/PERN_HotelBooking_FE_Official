@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Box, IconButton, FormControl, Select, MenuItem, Button, useTheme, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip, Button, useTheme, Typography } from '@mui/material';
 import { Help, MarkEmailRead, EventAvailable, ExitToApp, Cancel, CheckCircle, Visibility } from '@mui/icons-material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
@@ -101,14 +101,13 @@ const TableBookings = () => {
         setOpenDialogViewBooking(!openDialogViewBooking);
     };
 
-    const handleChangeBookingStatus = async (event, id, roomId, email) => {
-        const bookingStatusKey = event.target.value;
+    const handleCancelBooking = async booking => {
         try {
             setIsLoading(true);
-            const response = await updateBookingStatusService(axiosPrivate, id, {
-                bookingStatusKey,
-                roomId,
-                email,
+            const response = await updateBookingStatusService(axiosPrivate, booking.id, {
+                bookingStatusKey: 'SB5',
+                roomId: booking.roomId,
+                email: booking.email,
                 language,
             });
             if (response?.data?.message) {
@@ -181,41 +180,21 @@ const TableBookings = () => {
             },
         },
         {
-            field: 'updateStatus',
+            field: 'bookingStatus',
             headerName: 'Booking status',
             headerAlign: 'center',
             align: 'center',
             minWidth: 350,
 
-            renderCell: ({ row: { bookingStatusKey, id, roomId, email } }) => {
+            renderCell: ({ row: { bookingStatusKey } }) => {
                 return (
-                    <FormControl sx={{ width: '100%' }} variant="standard">
-                        <Select
-                            value={bookingStatusKey}
-                            onChange={event => handleChangeBookingStatus(event, id, roomId, email)}
-                        >
-                            {allBookingStatus &&
-                                allBookingStatus.map((bookingStatus, index) => {
-                                    return (
-                                        <MenuItem key={index} value={bookingStatus.keyMap}>
-                                            <Button
-                                                fullWidth
-                                                sx={{ textTransform: 'none' }}
-                                                endIcon={statusMap[bookingStatus.keyMap] || ''}
-                                            >
-                                                <Typography
-                                                    sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}
-                                                >
-                                                    {language === LANGUAGES.VI
-                                                        ? bookingStatus.valueVi
-                                                        : bookingStatus.valueEn}
-                                                </Typography>
-                                            </Button>
-                                        </MenuItem>
-                                    );
-                                })}
-                        </Select>
-                    </FormControl>
+                    <Button fullWidth sx={{ textTransform: 'none' }} endIcon={statusMap[bookingStatusKey] || ''}>
+                        <Typography sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}>
+                            {language === LANGUAGES.VI
+                                ? allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueVi
+                                : allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueEn}
+                        </Typography>
+                    </Button>
                 );
             },
         },
@@ -224,14 +203,25 @@ const TableBookings = () => {
             headerName: 'Actions',
             headerAlign: 'center',
             align: 'center',
-            minWidth: 200,
+            minWidth: 150,
 
             renderCell: ({ row }) => {
                 return (
                     <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
-                        <IconButton onClick={() => handleToggleDialogViewBooking(row)} aria-label="view" size="small">
-                            <Visibility fontSize="inherit" />
-                        </IconButton>
+                        <Tooltip title="View details">
+                            <IconButton
+                                onClick={() => handleToggleDialogViewBooking(row)}
+                                aria-label="view"
+                                size="large"
+                            >
+                                <Visibility fontSize="inherit" color="primary" />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Cancel booking">
+                            <IconButton onClick={() => handleCancelBooking(row)} aria-label="cancel" size="large">
+                                <Cancel fontSize="inherit" color="error" />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 );
             },

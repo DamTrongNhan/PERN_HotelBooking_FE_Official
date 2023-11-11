@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Box, IconButton, FormControl, Select, MenuItem, Button, useTheme, Typography } from '@mui/material';
+import { Box, IconButton, Button, useTheme, Typography } from '@mui/material';
 import { Help, MarkEmailRead, EventAvailable, ExitToApp, Cancel, CheckCircle, Visibility } from '@mui/icons-material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
@@ -14,7 +14,7 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { getAllBookingHistoriesService, updateBookingStatusService } from 'services/bookingsService';
+import { getAllBookingHistoriesService } from 'services/bookingsService';
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
 import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
@@ -98,34 +98,6 @@ const TableBookingHistories = () => {
         setCurrentBooking(booking);
         setOpenDialogViewBooking(!openDialogViewBooking);
     };
-    const handleChangeBookingStatus = async (event, id, roomId, email) => {
-        const bookingStatusKey = event.target.value;
-        try {
-            setIsLoading(true);
-            const response = await updateBookingStatusService(axiosPrivate, id, {
-                bookingStatusKey,
-                roomId,
-                email,
-                language,
-            });
-            if (response?.data?.message) {
-                setIsLoading(false);
-                toast.success(response.data.message);
-                getAllBookings();
-            } else {
-                setIsLoading(false);
-            }
-        } catch (error) {
-            setIsLoading(false);
-            if (error.response && error.response.data && error.response.data.message) {
-                toast.error(error.response.data.message);
-            } else {
-                toast.error(error.message);
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     const columns = [
         {
@@ -185,33 +157,13 @@ const TableBookingHistories = () => {
             minWidth: 350,
             renderCell: ({ row: { bookingStatusKey, id, roomId, email } }) => {
                 return (
-                    <FormControl sx={{ width: '80%' }} variant="standard">
-                        <Select
-                            value={bookingStatusKey}
-                            onChange={event => handleChangeBookingStatus(event, id, roomId, email)}
-                        >
-                            {allBookingStatus &&
-                                allBookingStatus.map((bookingStatus, index) => {
-                                    return (
-                                        <MenuItem key={index} value={bookingStatus.keyMap}>
-                                            <Button
-                                                fullWidth
-                                                sx={{ textTransform: 'none' }}
-                                                endIcon={statusMap[bookingStatus.keyMap] || ''}
-                                            >
-                                                <Typography
-                                                    sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}
-                                                >
-                                                    {language === LANGUAGES.VI
-                                                        ? bookingStatus.valueVi
-                                                        : bookingStatus.valueEn}
-                                                </Typography>
-                                            </Button>
-                                        </MenuItem>
-                                    );
-                                })}
-                        </Select>
-                    </FormControl>
+                    <Button fullWidth sx={{ textTransform: 'none' }} endIcon={statusMap[bookingStatusKey] || ''}>
+                        <Typography sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}>
+                            {language === LANGUAGES.VI
+                                ? allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueVi
+                                : allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueEn}
+                        </Typography>
+                    </Button>
                 );
             },
         },

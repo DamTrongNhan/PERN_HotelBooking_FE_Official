@@ -14,7 +14,7 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { getAllBookingHistoriesService, updateBookingStatusService } from 'services/bookingsService';
+import { getAllBookingHistoriesByUserIdService, updateBookingStatusService } from 'services/bookingsService';
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
 import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
@@ -24,6 +24,7 @@ import { LANGUAGES } from 'utils';
 const TableBookingHistories = () => {
     const axiosPrivate = useAxiosPrivate();
     const language = useSelector(state => state.app.language || 'vi');
+    const userId = useSelector(state => state.auth.userInfo?.id || '');
 
     const theme = useTheme();
 
@@ -54,7 +55,7 @@ const TableBookingHistories = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingHistoriesService(axiosPrivate);
+            const response = await getAllBookingHistoriesByUserIdService(axiosPrivate, userId);
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 
@@ -97,34 +98,6 @@ const TableBookingHistories = () => {
     const handleToggleDialogViewBooking = booking => {
         setCurrentBooking(booking);
         setOpenDialogViewBooking(!openDialogViewBooking);
-    };
-    const handleChangeBookingStatus = async (event, id, roomId, email) => {
-        const bookingStatusKey = event.target.value;
-        try {
-            setIsLoading(true);
-            const response = await updateBookingStatusService(axiosPrivate, id, {
-                bookingStatusKey,
-                roomId,
-                email,
-                language,
-            });
-            if (response?.data?.message) {
-                setIsLoading(false);
-                toast.success(response.data.message);
-                getAllBookings();
-            } else {
-                setIsLoading(false);
-            }
-        } catch (error) {
-            setIsLoading(false);
-            if (error.response && error.response.data && error.response.data.message) {
-                toast.error(error.response.data.message);
-            } else {
-                toast.error(error.message);
-            }
-        } finally {
-            setIsLoading(false);
-        }
     };
 
     const columns = [
@@ -178,40 +151,20 @@ const TableBookingHistories = () => {
             },
         },
         {
-            field: 'updateStatus',
+            field: 'bookingStatus',
             headerName: 'Booking status',
             headerAlign: 'center',
             align: 'center',
             minWidth: 350,
             renderCell: ({ row: { bookingStatusKey, id, roomId, email } }) => {
                 return (
-                    <FormControl sx={{ width: '80%' }} variant="standard">
-                        <Select
-                            value={bookingStatusKey}
-                            onChange={event => handleChangeBookingStatus(event, id, roomId, email)}
-                        >
-                            {allBookingStatus &&
-                                allBookingStatus.map((bookingStatus, index) => {
-                                    return (
-                                        <MenuItem key={index} value={bookingStatus.keyMap}>
-                                            <Button
-                                                fullWidth
-                                                sx={{ textTransform: 'none' }}
-                                                endIcon={statusMap[bookingStatus.keyMap] || ''}
-                                            >
-                                                <Typography
-                                                    sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}
-                                                >
-                                                    {language === LANGUAGES.VI
-                                                        ? bookingStatus.valueVi
-                                                        : bookingStatus.valueEn}
-                                                </Typography>
-                                            </Button>
-                                        </MenuItem>
-                                    );
-                                })}
-                        </Select>
-                    </FormControl>
+                    <Button fullWidth sx={{ textTransform: 'none' }} endIcon={statusMap[bookingStatusKey] || ''}>
+                        <Typography sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black' }}>
+                            {language === LANGUAGES.VI
+                                ? allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueVi
+                                : allBookingStatus.find(obj => obj.keyMap === bookingStatusKey)?.valueEn}
+                        </Typography>
+                    </Button>
                 );
             },
         },
@@ -220,7 +173,7 @@ const TableBookingHistories = () => {
             headerName: 'Actions',
             headerAlign: 'center',
             align: 'center',
-            minWidth: 200,
+            minWidth: 150,
             renderCell: ({ row }) => {
                 return (
                     <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
