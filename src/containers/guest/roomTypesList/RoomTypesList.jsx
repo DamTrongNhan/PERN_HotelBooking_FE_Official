@@ -64,6 +64,7 @@ const RoomTypesList = () => {
 
     const [allRoomTypes, setAllRoomTypes] = useState([]);
     const [allRooms, setAllRooms] = useState([]);
+    const [totalRoomTypes, setTotalRoomTypes] = useState(0);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -82,6 +83,7 @@ const RoomTypesList = () => {
 
                 setAllRoomTypes(response.data);
                 setSize(response?.totalPages ? response.totalPages : 0);
+                setTotalRoomTypes(response?.totalItems);
             }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
@@ -103,6 +105,7 @@ const RoomTypesList = () => {
             const response = await getAllRoomsAvailableByRoomTypeKeyService(roomTypeKey, checkInIso, checkOutIso);
             if (response?.data) {
                 setIsLoading(false);
+
                 setAllRooms(response.data);
             }
         } catch (error) {
@@ -249,7 +252,7 @@ const RoomTypesList = () => {
                 >
                     <Box>
                         <Typography>
-                            {allRoomTypes.length} <FormattedMessage id="guest.roomTypesList.found" />
+                            {totalRoomTypes || 0} <FormattedMessage id="guest.roomTypesList.found" />
                         </Typography>
                     </Box>
 
