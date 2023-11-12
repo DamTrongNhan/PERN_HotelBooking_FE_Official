@@ -54,7 +54,7 @@ const TableBookingHistories = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingHistoriesService(axiosPrivate);
+            const response = await getAllBookingHistoriesService(axiosPrivate, 'SB4');
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 

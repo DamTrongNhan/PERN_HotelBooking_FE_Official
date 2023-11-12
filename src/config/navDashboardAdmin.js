@@ -12,6 +12,7 @@ import {
     Hotel,
     Event,
     RecordVoiceOver,
+    Cancel,
 } from '@mui/icons-material';
 
 import { DASHBOARD_ADMIN_PATHS } from 'utils';
@@ -57,6 +58,11 @@ export const itemsAdmin = [
         title: <FormattedMessage id="dashboardAdmin.navSideBar.histories" />,
         path: DASHBOARD_ADMIN_PATHS.HISTORIES,
         icon: <History />,
+    },
+    {
+        title: <FormattedMessage id="dashboardAdmin.navSideBar.cancelled" />,
+        path: DASHBOARD_ADMIN_PATHS.CANCELLED,
+        icon: <Cancel />,
     },
     {
         title: <FormattedMessage id="dashboardAdmin.navSideBar.calendar" />,

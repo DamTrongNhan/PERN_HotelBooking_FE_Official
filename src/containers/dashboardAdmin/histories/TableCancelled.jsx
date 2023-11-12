@@ -14,17 +14,16 @@ import HeaderComponent from 'components/dashboard/HeaderComponent';
 import LoadingOverlay from 'components/common/LoadingOverlay';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { getAllBookingHistoriesByUserIdService } from 'services/bookingsService';
+import { getAllBookingHistoriesService } from 'services/bookingsService';
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
 import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
 
 import { LANGUAGES } from 'utils';
 
-const TableBookingHistories = () => {
+const TableBookingCancelled = () => {
     const axiosPrivate = useAxiosPrivate();
     const language = useSelector(state => state.app.language || 'vi');
-    const userId = useSelector(state => state.auth.userInfo?.id || '');
 
     const theme = useTheme();
 
@@ -55,7 +54,7 @@ const TableBookingHistories = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingHistoriesByUserIdService(axiosPrivate, userId, 'SB4');
+            const response = await getAllBookingHistoriesService(axiosPrivate, 'SB5');
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 
@@ -151,7 +150,7 @@ const TableBookingHistories = () => {
             },
         },
         {
-            field: 'bookingStatus',
+            field: 'updateStatus',
             headerName: 'Booking status',
             headerAlign: 'center',
             align: 'center',
@@ -249,4 +248,4 @@ const TableBookingHistories = () => {
     );
 };
 
-export default TableBookingHistories;
+export default TableBookingCancelled;

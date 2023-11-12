@@ -29,6 +29,7 @@ import AdminTableRooms from 'containers/dashboardAdmin/rooms/TableRooms';
 import AdminTableBookings from 'containers/dashboardAdmin/bookings/TableBookings';
 import AdminCalendar from 'containers/dashboardAdmin/calendar/Calendar';
 import AdminTableHistories from 'containers/dashboardAdmin/histories/TableHistories';
+import AdminTableCancelled from 'containers/dashboardAdmin/histories/TableCancelled';
 import AdminTablePosts from 'containers/dashboardAdmin/posts/TablePosts';
 import AdminMail from 'containers/dashboardAdmin/mail/Mail';
 import AdminTableReviews from 'containers/dashboardAdmin/reviews/TableReviews';
@@ -38,6 +39,7 @@ import AdminSettings from 'containers/dashboardAdmin/settings/Settings';
 import UserTableBookings from 'containers/dashboardUser/bookings/TableBookings';
 import UserProfile from 'containers/dashboardUser/profile/Profile';
 import UserTableHistories from 'containers/dashboardUser/histories/TableHistories';
+import UserTableCancelled from 'containers/dashboardUser/histories/TableCancelled';
 import UserTableReviews from 'containers/dashboardUser/reviews/TableReviews';
 import UserSettings from 'containers/dashboardAdmin/settings/Settings';
 
@@ -107,6 +109,7 @@ const App = () => {
                             <Route path={DASHBOARD_ADMIN_PATHS.BOOKINGS} element={<AdminTableBookings />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.CALENDAR} element={<AdminCalendar />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.HISTORIES} element={<AdminTableHistories />} />
+                            <Route path={DASHBOARD_ADMIN_PATHS.CANCELLED} element={<AdminTableCancelled />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.POSTS} element={<AdminTablePosts />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.MAIL} element={<AdminMail />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.REVIEWS} element={<AdminTableReviews />} />
@@ -119,6 +122,7 @@ const App = () => {
                             <Route path={DASHBOARD_USER_PATHS.BOOKINGS} element={<UserTableBookings />} />
                             <Route path={DASHBOARD_USER_PATHS.PROFILE} element={<UserProfile />} />
                             <Route path={DASHBOARD_USER_PATHS.HISTORIES} element={<UserTableHistories />} />
+                            <Route path={DASHBOARD_USER_PATHS.CANCELLED} element={<UserTableCancelled />} />
                             <Route path={DASHBOARD_USER_PATHS.REVIEWS} element={<UserTableReviews />} />
                             <Route path={DASHBOARD_USER_PATHS.SETTINGS} element={<UserSettings />} />
                             <Route path={DASHBOARD_USER_PATHS.CHAT_REAL_TIMES} element={<ChatRealTimes />} />

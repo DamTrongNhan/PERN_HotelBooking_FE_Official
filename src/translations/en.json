@@ -139,6 +139,7 @@
             "rooms": "Rooms",
             "bookings": "Bookings",
             "histories": "Histories",
+            "cancelled": "Cancelled",
             "posts": "Posts",
             "mail": "Send mail",
             "calendar": "Calendar",
@@ -268,7 +269,8 @@
         "navSideBar": {
             "profile": "Profile",
             "booking": "Booking",
-            "bookingHistories": "Booking history",
+            "histories": "Histories",
+            "cancelled": "Cancelled",
             "reviews": "Reviews room",
             "chat": "Contact"
         }

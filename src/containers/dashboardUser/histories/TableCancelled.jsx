@@ -21,7 +21,7 @@ import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBook
 
 import { LANGUAGES } from 'utils';
 
-const TableBookingHistories = () => {
+const TableBookingCancelled = () => {
     const axiosPrivate = useAxiosPrivate();
     const language = useSelector(state => state.app.language || 'vi');
     const userId = useSelector(state => state.auth.userInfo?.id || '');
@@ -55,7 +55,7 @@ const TableBookingHistories = () => {
     const getAllBookings = async () => {
         try {
             setIsLoading(true);
-            const response = await getAllBookingHistoriesByUserIdService(axiosPrivate, userId, 'SB4');
+            const response = await getAllBookingHistoriesByUserIdService(axiosPrivate, userId, 'SB5');
             if (response?.data?.data) {
                 setAllBookings(response.data.data);
 
@@ -151,7 +151,7 @@ const TableBookingHistories = () => {
             },
         },
         {
-            field: 'bookingStatus',
+            field: 'updateStatus',
             headerName: 'Booking status',
             headerAlign: 'center',
             align: 'center',
@@ -249,4 +249,4 @@ const TableBookingHistories = () => {
     );
 };
 
-export default TableBookingHistories;
+export default TableBookingCancelled;

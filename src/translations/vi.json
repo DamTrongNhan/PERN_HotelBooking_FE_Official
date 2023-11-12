@@ -139,6 +139,7 @@
             "rooms": "Phòng",
             "bookings": "Đặt phòng",
             "histories": "Lịch sử",
+            "cancelled": "Đơn hủy",
             "posts": "Bài viết",
             "mail": "Gửi mail",
             "calendar": "Lịch",
@@ -269,7 +270,8 @@
         "navSideBar": {
             "profile": "Thông tin cá nhân",
             "booking": "Đặt phòng",
-            "bookingHistories": "Lịch sử đặt phòng",
+            "histories": "Lịch sử",
+            "cancelled": "Đơn hủy",
             "reviews": "Đánh giá phòng",
             "chat": "Liên hệ"
         }
