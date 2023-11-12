@@ -3,16 +3,14 @@ import { useSelector } from 'react-redux';
 
 import { Box, IconButton, Typography, Unstable_Grid2 as Grid, useTheme } from '@mui/material';
 import {
-    Edit,
-    Delete,
-    AddBox,
     People,
     SensorDoor,
     Hotel,
     ReceiptLong,
-    Person,
     RateReview,
     AccountBalanceWallet,
+    Done,
+    Clear,
 } from '@mui/icons-material';
 
 import { toast } from 'react-toastify';
@@ -58,16 +56,28 @@ const DashBoard = () => {
             if (response?.data?.data) {
                 const data = response.data.data;
                 const allStatisticsData = [
-                    { title: 'Users', value: data.users, icon: <People />, color: 'secondary.main' },
-                    { title: 'Room types', value: data.roomTypes, icon: <Hotel />, color: 'info.main' },
-                    { title: 'Rooms', value: data.rooms, icon: <SensorDoor />, color: 'primary.main' },
-                    { title: 'Bookings', value: data.bookings, icon: <ReceiptLong />, color: 'warning.main' },
-                    { title: 'Reviews', value: data.reviews, icon: <RateReview />, color: 'error.main' },
+                    { title: 'Users', value: data.users || 0, icon: <People />, color: 'secondary.main' },
+                    { title: 'Room types', value: data.roomTypes || 0, icon: <Hotel />, color: 'info.main' },
+                    { title: 'Rooms', value: data.rooms || 0, icon: <SensorDoor />, color: 'info.light' },
+                    { title: 'Reviews', value: data.reviews || 0, icon: <RateReview />, color: 'error.main' },
+                    { title: 'Bookings', value: data.bookings || 0, icon: <ReceiptLong />, color: 'success.dark' },
+                    {
+                        title: 'Bookings completed',
+                        value: data.bookingsCompleted || 0,
+                        icon: <Done />,
+                        color: 'success.main',
+                    },
+                    {
+                        title: 'Bookings cancelled',
+                        value: data.bookingsCancelled || 0,
+                        icon: <Clear />,
+                        color: 'success.light',
+                    },
                     {
                         title: 'Total profit',
-                        value: data.totalProfit,
+                        value: data.totalProfit || 0,
                         icon: <AccountBalanceWallet />,
-                        color: 'success.main',
+                        color: 'warning.light',
                     },
                 ];
                 setAllStatistics(allStatisticsData);
