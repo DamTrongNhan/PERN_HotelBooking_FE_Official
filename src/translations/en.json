@@ -258,6 +258,10 @@
             "message": "New message from",
             "noMessages": "No messages",
             "noFoundUser": "No user found"
+        },
+        "dashboard": {
+            "title": "Dashboard",
+            "subtitle": "Details"
         }
     },
     "dashboardUser": {

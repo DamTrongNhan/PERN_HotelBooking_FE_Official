@@ -119,7 +119,7 @@ const Navbar = () => {
         }
     };
     const handleNavigateDashboard = () => {
-        if (userInfo?.roleKey === 'R1') navigate(DASHBOARD_ADMIN_PATHS.CHART);
+        if (userInfo?.roleKey === 'R1') navigate(DASHBOARD_ADMIN_PATHS.DASHBOARD);
         else if (userInfo?.roleKey === 'R2') navigate(DASHBOARD_USER_PATHS.BOOKINGS);
         else {
             toast.error('Not authenticated, redirecting');

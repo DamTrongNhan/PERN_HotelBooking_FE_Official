@@ -259,6 +259,10 @@
             "message": "Có tin nhắn đến từ",
             "noMessages": "Không có tin nhắn mới",
             "noFoundUser": "Không tìm thấy khách hàng"
+        },
+        "dashboard": {
+            "title": "Quản trị",
+            "subtitle": "Chi tiết"
         }
     },
     "dashboardUser": {

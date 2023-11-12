@@ -20,7 +20,7 @@ import VerifyOTP from 'containers/auth/VerifyOTP';
 import ResetPassword from 'containers/auth/ResetPassword';
 
 // Admin
-import AdminChart from 'containers/dashboardAdmin/chart/Chart';
+import AdminDashboard from 'containers/dashboardAdmin/dashboard/Dashboard';
 import AdminTableAllCodes from 'containers/dashboardAdmin/allCodes/TableAllCodes';
 import AdminTableServices from 'containers/dashboardAdmin/services/TableServices';
 import AdminTableUsers from 'containers/dashboardAdmin/users/TableUsers';
@@ -98,8 +98,7 @@ const App = () => {
                         </Route>
                         {/* Admin */}
                         <Route path={DASHBOARD_ADMIN_PATHS.DASHBOARD} element={<DashboardLayout />}>
-                            <Route index element={<Navigate to={DASHBOARD_ADMIN_PATHS.CHART} />} />
-                            <Route path={DASHBOARD_ADMIN_PATHS.CHART} element={<AdminChart />} />
+                            <Route index element={<AdminDashboard />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.ALL_CODES} element={<AdminTableAllCodes />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.SERVICES} element={<AdminTableServices />} />
                             <Route path={DASHBOARD_ADMIN_PATHS.USERS} element={<AdminTableUsers />} />

@@ -20,7 +20,7 @@ import { FormattedMessage } from 'react-intl';
 export const itemsAdmin = [
     {
         title: <FormattedMessage id="dashboardAdmin.navSideBar.chart" />,
-        path: DASHBOARD_ADMIN_PATHS.CHART,
+        path: DASHBOARD_ADMIN_PATHS.DASHBOARD,
         icon: <BarChart />,
     },
     {

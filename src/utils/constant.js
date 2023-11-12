@@ -19,7 +19,6 @@ export const GUEST_PATHS = {
 };
 export const DASHBOARD_ADMIN_PATHS = {
     DASHBOARD: '/dashBoardAdmin',
-    CHART: '/dashBoardAdmin/chart',
     ALL_CODES: '/dashBoardAdmin/allCodes',
     SERVICES: '/dashBoardAdmin/services',
     USERS: '/dashBoardAdmin/users',
