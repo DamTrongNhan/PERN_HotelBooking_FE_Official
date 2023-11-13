@@ -517,11 +517,7 @@ const ChatRealTimes = () => {
                         <CardHeader
                             key={index}
                             sx={{ cursor: 'pointer' }}
-                            avatar={
-                                <Badge badgeContent={4} color="primary">
-                                    <Avatar aria-label="avatar" src={user?.avatarData?.url} />
-                                </Badge>
-                            }
+                            avatar={<Avatar aria-label="avatar" src={user?.avatarData?.url} />}
                             action={
                                 <Typography variant="body2">{dayjs(user?.birthday).format('DD/MM/YYYY')}</Typography>
                             }
