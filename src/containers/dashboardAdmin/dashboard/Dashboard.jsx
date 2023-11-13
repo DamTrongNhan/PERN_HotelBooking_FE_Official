@@ -59,19 +59,19 @@ const DashBoard = () => {
                     { title: 'Users', value: data.users || 0, icon: <People />, color: 'secondary.main' },
                     { title: 'Room types', value: data.roomTypes || 0, icon: <Hotel />, color: 'info.main' },
                     { title: 'Rooms', value: data.rooms || 0, icon: <SensorDoor />, color: 'info.light' },
-                    { title: 'Reviews', value: data.reviews || 0, icon: <RateReview />, color: 'error.main' },
-                    { title: 'Bookings', value: data.bookings || 0, icon: <ReceiptLong />, color: 'success.dark' },
+                    { title: 'Reviews', value: data.reviews || 0, icon: <RateReview />, color: 'secondary.light' },
+                    { title: 'Bookings', value: data.bookings || 0, icon: <ReceiptLong />, color: 'primary.dark' },
                     {
                         title: 'Bookings completed',
                         value: data.bookingsCompleted || 0,
                         icon: <Done />,
-                        color: 'success.main',
+                        color: 'success.light',
                     },
                     {
                         title: 'Bookings cancelled',
                         value: data.bookingsCancelled || 0,
                         icon: <Clear />,
-                        color: 'success.light',
+                        color: 'error.main',
                     },
                     {
                         title: 'Total profit',
