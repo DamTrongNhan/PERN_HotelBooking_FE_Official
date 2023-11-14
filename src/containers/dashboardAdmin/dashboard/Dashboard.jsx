@@ -12,6 +12,7 @@ import {
     CardActions,
     Divider,
     CardContent,
+    Paper,
 } from '@mui/material';
 import {
     People,
@@ -23,6 +24,8 @@ import {
     Done,
     Clear,
 } from '@mui/icons-material';
+
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
@@ -42,6 +45,7 @@ const DashBoard = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [allStatistics, setAllStatistics] = useState([]);
+    const [revenue, setRevenue] = useState([]);
 
     const theme = useTheme();
 
@@ -92,6 +96,7 @@ const DashBoard = () => {
                     },
                 ];
                 setAllStatistics(allStatisticsData);
+                setRevenue(data?.revenue);
                 setIsLoading(false);
             } else {
                 setIsLoading(false);
@@ -130,35 +135,73 @@ const DashBoard = () => {
                             </Grid>
                         ))}
 
-                    <Grid xs={12} lg={8}>
-                        <Card>
-                            <CardHeader action={''} title="Sales" />
-                            <CardContent></CardContent>
-                            <Divider />
-                            <CardActions sx={{ justifyContent: 'flex-end' }}></CardActions>
-                        </Card>
+                    <Grid xs={12} lg={12}>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                height: 500,
+                            }}
+                        >
+                            <Typography component="h2" variant="h5" color="primary" gutterBottom>
+                                Revenue
+                            </Typography>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart
+                                    data={revenue}
+                                    margin={{
+                                        top: 16,
+                                        right: 16,
+                                        bottom: 0,
+                                        left: 24,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis
+                                        dataKey="date"
+                                        stroke={theme.palette.text.secondary}
+                                        style={theme.typography.body2}
+                                    />
+                                    <YAxis stroke={theme.palette.text.secondary} style={theme.typography.body2}></YAxis>
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="profit" stroke={theme.palette.primary.main} />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </Paper>
                     </Grid>
-                    <Grid xs={12} md={6} lg={4}>
-                        <Card>
-                            <CardHeader title="Traffic Source" />
-                            <CardContent></CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid xs={12} md={6} lg={4}>
-                        <Card>
-                            <CardHeader title="Latest Products" />
 
-                            <Divider />
-                            <CardActions sx={{ justifyContent: 'flex-end' }}></CardActions>
-                        </Card>
+                    <Grid xs={12} md={6} lg={4}>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                height: 270,
+                            }}
+                        >
+                            <Typography component="h2" variant="h5" color="primary" gutterBottom>
+                                Room types
+                            </Typography>
+                        </Paper>
                     </Grid>
                     <Grid xs={12} md={12} lg={8}>
-                        <Card>
-                            <CardHeader title="Latest Orders" />
-                            <Box sx={{ minWidth: 800 }}></Box>
-                            <Divider />
-                            <CardActions sx={{ justifyContent: 'flex-end' }}></CardActions>
-                        </Card>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                height: 270,
+                            }}
+                        >
+                            <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                                Most room type
+                            </Typography>
+                        </Paper>
                     </Grid>
                 </Grid>
             </Box>

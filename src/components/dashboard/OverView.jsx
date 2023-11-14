@@ -31,7 +31,6 @@ const OverView = props => {
 };
 
 OverView.propTypes = {
-    value: PropTypes.string,
     sx: PropTypes.object,
 };
 export default OverView;
