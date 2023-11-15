@@ -27,6 +27,7 @@ import {
     MeetingRoom,
     SquareFoot,
     KingBed,
+    TimesOneMobiledata,
 } from '@mui/icons-material';
 
 import { Image } from 'antd';
@@ -111,6 +112,11 @@ const DialogViewRoomType = props => {
                     icon: <QueryBuilder fontSize="large" />,
                     content: currentRoomType?.checkInOutTime,
                     subtitle: <FormattedMessage id="dashboardAdmin.roomTypes.detail.checkInOutTime" />,
+                },
+                {
+                    icon: <TimesOneMobiledata fontSize="large" />,
+                    content: currentRoomType?.numberBookings,
+                    subtitle: <FormattedMessage id="dashboardAdmin.roomTypes.detail.numberBookings" />,
                 },
                 {
                     icon: <WatchLater fontSize="large" />,

@@ -262,7 +262,8 @@
         },
         "dashboard": {
             "title": "Dashboard",
-            "subtitle": "Details"
+            "subtitle": "Details",
+            "revenue": "Revenue"
         }
     },
     "dashboardUser": {

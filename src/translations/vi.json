@@ -263,7 +263,8 @@
         },
         "dashboard": {
             "title": "Quản trị",
-            "subtitle": "Chi tiết"
+            "subtitle": "Chi tiết",
+            "revenue": "Doanh thu"
         }
     },
     "dashboardUser": {

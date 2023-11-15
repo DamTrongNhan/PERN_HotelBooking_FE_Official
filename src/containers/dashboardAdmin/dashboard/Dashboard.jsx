@@ -1,19 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-    Box,
-    IconButton,
-    Typography,
-    Unstable_Grid2 as Grid,
-    useTheme,
-    Card,
-    CardHeader,
-    CardActions,
-    Divider,
-    CardContent,
-    Paper,
-} from '@mui/material';
+import { Box, Typography, Unstable_Grid2 as Grid, useTheme, Paper } from '@mui/material';
 import {
     People,
     SensorDoor,
@@ -25,7 +13,7 @@ import {
     Clear,
 } from '@mui/icons-material';
 
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
@@ -49,15 +37,15 @@ const DashBoard = () => {
 
     const theme = useTheme();
 
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const neutralLight = theme.palette.neutral.light;
-    const primaryLight = theme.palette.primary.light;
-    const alt = theme.palette.background.alt;
-    const medium = theme.palette.neutral.medium;
-    const mediumMain = theme.palette.neutral.mediumMain;
-    const main = theme.palette.neutral.main;
-    const primary = theme.palette.primary.main;
+    // const dark = theme.palette.neutral.dark;
+    // const background = theme.palette.background.default;
+    // const neutralLight = theme.palette.neutral.light;
+    // const primaryLight = theme.palette.primary.light;
+    // const alt = theme.palette.background.alt;
+    // const medium = theme.palette.neutral.medium;
+    // const mediumMain = theme.palette.neutral.mediumMain;
+    // const main = theme.palette.neutral.main;
+    // const primary = theme.palette.primary.main;
 
     useEffect(() => {
         getAllStatistics();
@@ -146,7 +134,7 @@ const DashBoard = () => {
                             }}
                         >
                             <Typography component="h2" variant="h5" color="primary" gutterBottom>
-                                Revenue
+                                <FormattedMessage id="dashboardAdmin.dashboard.revenue" />
                             </Typography>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
@@ -173,7 +161,7 @@ const DashBoard = () => {
                         </Paper>
                     </Grid>
 
-                    <Grid xs={12} md={6} lg={4}>
+                    {/* <Grid xs={12} md={6} lg={4}>
                         <Paper
                             sx={{
                                 p: 2,
@@ -202,7 +190,7 @@ const DashBoard = () => {
                                 Most room type
                             </Typography>
                         </Paper>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
         </>
