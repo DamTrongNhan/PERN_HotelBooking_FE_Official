@@ -70,24 +70,23 @@ export const itemsAdmin = [
         icon: <Event />,
     },
     {
-        title: <FormattedMessage id="dashboardAdmin.navSideBar.posts" />,
-        path: DASHBOARD_ADMIN_PATHS.POSTS,
-        icon: <Edit />,
-    },
-    {
         title: <FormattedMessage id="dashboardAdmin.navSideBar.reviews" />,
         path: DASHBOARD_ADMIN_PATHS.REVIEWS,
         icon: <ThumbUpAlt />,
-    },
-
-    {
-        title: <FormattedMessage id="dashboardAdmin.navSideBar.mail" />,
-        path: DASHBOARD_ADMIN_PATHS.MAIL,
-        icon: <Email />,
     },
     {
         title: <FormattedMessage id="dashboardAdmin.navSideBar.chat" />,
         path: DASHBOARD_ADMIN_PATHS.CHAT_REAL_TIMES,
         icon: <RecordVoiceOver />,
     },
+    // {
+    //     title: <FormattedMessage id="dashboardAdmin.navSideBar.mail" />,
+    //     path: DASHBOARD_ADMIN_PATHS.MAIL,
+    //     icon: <Email />,
+    // },
+    // {
+    //     title: <FormattedMessage id="dashboardAdmin.navSideBar.posts" />,
+    //     path: DASHBOARD_ADMIN_PATHS.POSTS,
+    //     icon: <Edit />,
+    // },
 ];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Typography, Unstable_Grid2 as Grid, useTheme, Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -8,6 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { toast } from 'react-toastify';
 
 import LoadingOverlay from 'components/common/LoadingOverlay';
+import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { getBookingsCalendarService } from 'services/statisticsService';
@@ -17,6 +18,8 @@ const Calendar = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [bookings, setBookings] = useState([]);
+    const [currentBooking, setCurrentBooking] = useState(null);
+    const [openDialogViewBooking, setOpenDialogViewBooking] = useState(false);
 
     useEffect(() => {
         const getBookingsCalendar = async () => {
@@ -44,19 +47,40 @@ const Calendar = () => {
     }, []);
 
     const eventSource = bookings?.map(booking => ({
+        id: booking.id,
         title: booking?.email,
         start: booking?.checkIn,
         end: booking?.checkOut,
     }));
+
+    const viewBookingDetails = selected => {
+        const booking = bookings.find(booking => booking.id === selected.event.id);
+        setCurrentBooking(booking);
+        handleToggleDialogViewBooking();
+    };
+    const handleToggleDialogViewBooking = () => {
+        setOpenDialogViewBooking(!openDialogViewBooking);
+    };
 
     return (
         <>
             <LoadingOverlay isLoading={isLoading} />
             <Box p={2} sx={{ flexGrow: 1 }}>
                 <Paper sx={{ p: 2 }}>
-                    <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" events={eventSource} />
+                    <FullCalendar
+                        plugins={[dayGridPlugin]}
+                        initialView="dayGridMonth"
+                        dayMaxEvents={true}
+                        eventClick={viewBookingDetails}
+                        events={eventSource}
+                    />
                 </Paper>
             </Box>
+            <DialogViewBooking
+                handleToggleDialogView={handleToggleDialogViewBooking}
+                openDialogView={openDialogViewBooking}
+                currentBooking={currentBooking}
+            />
         </>
     );
 };
