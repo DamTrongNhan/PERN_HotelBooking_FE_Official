@@ -274,6 +274,12 @@
             "cancelled": "Cancelled",
             "reviews": "Reviews room",
             "chat": "Contact"
+        },
+        "bookings": {
+            "confirmCancelTitle": "Cancel reservation",
+            "confirmCancelBody": "You really want to cancel your booking?",
+            "cancel": "Cancel",
+            "yes": "Yes"
         }
     },
     "dashboardCommon": {

@@ -18,6 +18,7 @@ import { getAllBookingsByUserIdService, updateBookingStatusService } from 'servi
 import { getAllCodesByTypeService } from 'services/allCodesService';
 
 import DialogViewBooking from 'containers/dashboardAdmin/bookings/DialogViewBooking';
+import ConfirmCancel from 'containers/dashboardUser/bookings/ConfirmCancel';
 
 import { LANGUAGES } from 'utils';
 
@@ -35,6 +36,7 @@ const TableBookings = () => {
     const [currentBooking, setCurrentBooking] = useState(null);
 
     const [openDialogViewBooking, setOpenDialogViewBooking] = useState(false);
+    const [openDialogConfirmCancel, setOpenDialogConfirmCancel] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -101,13 +103,20 @@ const TableBookings = () => {
         setOpenDialogViewBooking(!openDialogViewBooking);
     };
 
-    const handleCancelBooking = async booking => {
+    const handleToggleDialogConfirmCancel = booking => {
+        setCurrentBooking(booking);
+        setOpenDialogConfirmCancel(!openDialogConfirmCancel);
+    };
+
+    const handleCancelBooking = async () => {
         try {
             setIsLoading(true);
-            const response = await updateBookingStatusService(axiosPrivate, booking.id, {
+            setOpenDialogConfirmCancel(!openDialogConfirmCancel);
+            const response = await updateBookingStatusService(axiosPrivate, currentBooking.id, {
                 bookingStatusKey: 'SB5',
-                roomId: booking.roomId,
-                email: booking.email,
+                roomId: currentBooking.roomId,
+                email: currentBooking.email,
+                bookingCode: currentBooking.bookingCode,
                 language,
             });
             if (response?.data?.message) {
@@ -218,7 +227,11 @@ const TableBookings = () => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Cancel booking">
-                            <IconButton onClick={() => handleCancelBooking(row)} aria-label="cancel" size="large">
+                            <IconButton
+                                onClick={() => handleToggleDialogConfirmCancel(row)}
+                                aria-label="cancel"
+                                size="large"
+                            >
                                 <Cancel fontSize="inherit" color="error" />
                             </IconButton>
                         </Tooltip>
@@ -281,6 +294,11 @@ const TableBookings = () => {
                 handleToggleDialogView={handleToggleDialogViewBooking}
                 openDialogView={openDialogViewBooking}
                 currentBooking={currentBooking}
+            />
+            <ConfirmCancel
+                handleToggleDialogConfirmCancel={handleToggleDialogConfirmCancel}
+                openDialogConfirmCancel={openDialogConfirmCancel}
+                handleCancelBooking={handleCancelBooking}
             />
         </>
     );

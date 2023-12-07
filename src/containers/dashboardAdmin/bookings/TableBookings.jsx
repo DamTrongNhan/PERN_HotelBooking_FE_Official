@@ -110,7 +110,7 @@ const TableBookings = () => {
         setOpenDialogViewBooking(!openDialogViewBooking);
     };
 
-    const handleChangeBookingStatus = async (event, id, roomId, email) => {
+    const handleChangeBookingStatus = async (event, id, roomId, email, bookingCode) => {
         const bookingStatusKey = event.target.value;
         try {
             setIsLoading(true);
@@ -118,6 +118,7 @@ const TableBookings = () => {
                 bookingStatusKey,
                 roomId,
                 email,
+                bookingCode,
                 language,
             });
             if (response?.data?.message) {
@@ -196,12 +197,12 @@ const TableBookings = () => {
             align: 'center',
             minWidth: 350,
 
-            renderCell: ({ row: { bookingStatusKey, id, roomId, email } }) => {
+            renderCell: ({ row: { bookingStatusKey, id, roomId, email, bookingCode } }) => {
                 return (
                     <FormControl sx={{ width: '100%' }} variant="standard">
                         <Select
                             value={bookingStatusKey}
-                            onChange={event => handleChangeBookingStatus(event, id, roomId, email)}
+                            onChange={event => handleChangeBookingStatus(event, id, roomId, email, bookingCode)}
                         >
                             {allBookingStatus &&
                                 allBookingStatus.map((bookingStatus, index) => {

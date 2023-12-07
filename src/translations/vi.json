@@ -275,6 +275,12 @@
             "cancelled": "Đơn hủy",
             "reviews": "Đánh giá phòng",
             "chat": "Liên hệ"
+        },
+        "bookings": {
+            "confirmCancelTitle": "Hủy đơn đặt",
+            "confirmCancelBody": "Bạn thật sự muốn hủy đơn đặt phòng?",
+            "cancel": "Hủy",
+            "yes": "Tiếp tục"
         }
     },
     "dashboardCommon": {
